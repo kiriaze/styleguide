@@ -37,7 +37,7 @@ If you have installed Node with sudo or root permission, You will need to fix pe
 
 ### 3. Build
 
-Run Gulp and you're good to go. Easy peazy titty squeezy.
+Run Gulp and you're good to go. This will open up a server with your styleguide and start watching for changes, with automatic refreshes on all devices! **Easy peazy titty squeezy.**
 
 	$ gulp
 
