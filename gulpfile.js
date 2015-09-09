@@ -117,6 +117,7 @@ gulp.task('sass', function() {
 });
 
 // minify, concat, uglify, sourcemap + bower
+// note: instead of running mainBowerFiles within js task, slowing down the watch task - pull out into its own task, and render a file separate from app.js like plugins.js and require it within app.js
 gulp.task('js', function(){
 
 	var files = mainBowerFiles('**/*.js');

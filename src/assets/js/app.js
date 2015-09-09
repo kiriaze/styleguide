@@ -19,6 +19,8 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 		SHORTNAME.setElements();
 		SHORTNAME.colors();
 		SHORTNAME.basics();
+		SHORTNAME.breakpointToggle();
+		SHORTNAME.codeSnippets();
 
 	};
 
@@ -29,6 +31,9 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 		SHORTNAME.elems.html          =	$('html');
 		SHORTNAME.elems.body          =	$('body');
 		SHORTNAME.elems.scrollToTop   =	$('a[data-scroll-to="top"]');
+
+		SHORTNAME.toggleSidebar       = $('.toggle-sidebar');
+		SHORTNAME.headerBreakpoints   = $('.styleguide-header-breakpoints');
 
 	};
 
@@ -75,17 +80,66 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 		// Target your .container, .wrapper, .post, etc.
 		// SHORTNAME.elems.body.fitVids();
 
-		$('.toggle-sidebar').on('click',function(){
-			$('body').toggleClass('sidebar-open');
+		SHORTNAME.toggleSidebar.on('click',function(){
+			SHORTNAME.body.toggleClass('sidebar-open');
 		});
 
-		$('.styleguide-header-breakpoints').find('a').on('click', function(){
+	};
+
+	SHORTNAME.breakpointToggle = function(){
+		SHORTNAME.headerBreakpoints.find('a').on('click', function(){
 			var size = $(this).data('breakpoint-size');
-			$('.styleguide-header-breakpoints').find('a').removeClass('active');
+			SHORTNAME.headerBreakpoints.find('a').removeClass('active');
 			$(this).addClass('active');
 			$('.primary').attr('data-breakpoint-size', size);
 		});
+	};
 
+	SHORTNAME.codeSnippets = function(){
+		var codeToCreateSnippetClass = '.snippet',
+			codeSnippetsClass        = '.styleguide-module__toggle-code';
+
+		/**
+		* Setup markup code snippet.
+		* It gets the HTML of the element and creates the code area
+		*/
+
+		var options = {
+			"indent":"auto",
+			"indent-spaces":2,
+			"wrap":80,
+			"markup":true,
+			"output-xml":false,
+			"numeric-entities":true,
+			"quote-marks":true,
+			"quote-nbsp":false,
+			"show-body-only":true,
+			"quote-ampersand":false,
+			"break-before-br":true,
+			"uppercase-tags":false,
+			"uppercase-attributes":false,
+			"drop-font-tags":true,
+			"tidy-mark":false,
+			"quiet":"yes",
+			"show-warnings":"no"
+		};
+
+		$.each($(codeToCreateSnippetClass), function(index, val) {
+			// console.log($(val), val);
+			var snippetClassName = codeToCreateSnippetClass.substr(1);
+			var snippet = tidy_html5(val.outerHTML.replace(' ' + snippetClassName, '').replace(snippetClassName, ''), options);
+			$(val).before('<a href="javascript:;" class="' + codeSnippetsClass.replace('.', '') + '"></a>');
+			$(val).after('<pre class="language-markup"><code>' + $('<p/>').text(snippet).html() + '</code></pre>').next().hide();
+		});
+
+		$(codeSnippetsClass).click(function(e) {
+			e.preventDefault();
+			var $code = $(this).next().next();
+			// console.log($code);
+			$code.toggle();
+		});
+
+		Prism.highlightAll();
 	};
 
 	$window.load(function() {
