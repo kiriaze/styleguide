@@ -45,8 +45,8 @@ $list-line-height:				1.6 !default;
 $blockquotes-font-size:			21 !default;
 
 // fonts - core/_fonts.scss
-$body-font:						'Lato', helvetica, sans-serif; // bourbon font stacks
-$header-font:					'Oswald', $body-font; // theme specific
+$body-font:						'Open Sans', helvetica, sans-serif; // bourbon font stacks
+$header-font:					'Open Sans', $body-font; // theme specific
 
 
 
@@ -65,34 +65,50 @@ $number-of-columns:				12; // max number of columns
 // $gutter:						0;
 
 
+//
+//
+// COLOR VARIABLES - patterns/_colors.scss
+//
+// - Cool
+// - Warm
+// - Gray Scale
+//
+
+// Cool
+$aqua:                          #4fc1e9;
+$blue:                          #3498db;
+$navy:                          #001F3F;
+$teal:                          #39CCCC;
+$green:                         #2ECC40;
+$seafoam:						#2ecc71;
+$olive:                         #3D9970;
+$lime:                          #01FF70;
+
+// Warm
+$yellow:                        #fff200;
+$orange:                        #FF851B;
+$red:							#FF4136;
+$fuchsia:                       #F012BE;
+$purple:                        #B10DC9;
+$maroon:                        #85144B;
+
+// Gray Scale
+$white:                         #fff;
+$silver:                        #ddd;
+$gray:                          #aaa;
+$black:                         #111;
+$default:						#ebebeb;
+$light-grey:                    #f5f5f5;
+$dark-grey:                     #333;
+
 // theme colors
-$primary-color:					#edc998; // gold
-$secondary-color:				#336699; // blue
-$tertiary-color:				#d13f30; // red
+$primary-color:					$red;
+$secondary-color:				$blue;
+$tertiary-color:				$silver;
 $accent-color:                  darken($primary-color, 10); // That is, 10% darker than the theme-color.
 
 $white:							#fff;
 $black:							#000;
-$whitesmoke:					#f5f5f5;
-
-$gold2:							#cdaa80;
-$gold3:							#ddc07e;
-
-$blue2:							darken($secondary-color,10);
-$blue3:							darken($secondary-color,20);
-
-$red2:							darken($tertiary-color,10);
-$red3:							darken($tertiary-color,20);
-
-$light-grey1:					#eee;
-$light-grey2:					#e3e3e3;
-$light-grey3:					#b2b2b2;
-
-$dark-grey1:					#303030;
-$dark-grey2:					#262626;
-$dark-grey3:					#222;
-$dark-grey4:					#111;
-
 
 $sidebar-width:					240px;
 

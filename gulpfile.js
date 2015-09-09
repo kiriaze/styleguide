@@ -183,20 +183,12 @@ gulp.task('clean', function(callback) {
 // json/jade styleguide
 gulp.task('styleguide', function() {
 
-	// if file exists, delete it before recreating it
-	// since jade isnt updating the concat file otherwise
 	var fs 		= require('fs'),
 		modules = config.src.root + '/modules.html';
-	if ( fs.existsSync(modules) ) {
-		del(modules)
-	} else {
-		console.log('FILE DOES NOT EXIST');
-	}
 
 	return gulp.src(config.src.root + '/modules/**/*.jade')
 		.pipe(plugins.data(function(file) {
 			// console.log(file);
-			// return require(path.dirname(file.path) + '/_data.json');
 			return JSON.parse(fs.readFileSync(path.dirname(file.path) + '/_data.json')); // running watch and because require calls are cached, changes to json don't show up unless you restart the task
 		}))
 		.pipe(plugins.jade())

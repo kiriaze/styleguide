@@ -1,14 +1,7 @@
 @import "../0_settings/settings.scss";
 
-@import url('//fonts.googleapis.com/css?family=Lato:900,400,700,300|Oswald:400,700,300|Libre+Baskerville:400');
+@import url('//fonts.googleapis.com/css?family=Lato:400|Libre+Baskerville:400');
 
-.font-oswald {
-	font-family: $header-font;
-	font-weight: 700;
-}
-.font-lato {
-	font-family: $body-font;
-}
 .font-libre-baskerville {
 	font-family: 'Libre Baskerville', $body-font;
 }

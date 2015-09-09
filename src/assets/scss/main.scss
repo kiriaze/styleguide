@@ -33,7 +33,7 @@ html {
 body {
 	line-height: 1;
 	font-family: $body-font;
-	color: $dark-grey1;
+	color: $dark-grey;
 	-webkit-font-smooth: always;
 	-webkit-font-smoothing: antialiased;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.01);
@@ -52,7 +52,7 @@ li {
 }
 
 a {
-	color: $dark-grey1;
+	color: $dark-grey;
 	text-decoration: none;
 	&:hover {
 		color: $black;
@@ -62,7 +62,7 @@ a {
 #main {
 	@include breakpoint($small) {
 		margin-top: 76px;
-		background: $light-grey1;
+		background: $light-grey;
 	}
 }
 
@@ -92,7 +92,7 @@ header {
 			display: inline-block;
 			margin-left: 1rem;
 			a {
-				color: $dark-grey1;
+				color: $dark-grey;
 				&:before {
 					content: '';
 					opacity: 0.5;
@@ -145,7 +145,6 @@ header {
 	#nav {
 		padding: 2rem;
 		a {
-			text-transform: uppercase;
 			padding: 1rem 0;
 			display: block;
 			&:hover,
@@ -160,7 +159,7 @@ header {
 	@include breakpoint($small) {
 		position: relative;
 		overflow: hidden;
-		background: $light-grey1;
+		background: $light-grey;
 		transition: $transition;
 		transform: translateX(-50%);
 		left: calc(50%);
@@ -192,9 +191,12 @@ header {
 		> h2 {
 			margin-bottom: 2rem;
 		}
+		p a {
+			border-bottom: 1px solid $gray;
+			padding-bottom: .25rem;
+		}
 	}
 }
-
 
 
 .styleguide-list--buttons {

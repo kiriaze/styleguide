@@ -29,10 +29,10 @@ $btn-border-width: 2px;
 	}
 
 	&.btn-light {
-		background: $whitesmoke;
-		color: $dark-grey1;
+		background: $silver;
+		color: $dark-grey;
 		&:hover {
-			background-color: $primary-color;
+			background-color: $black;
 			color: $white;
 		}
 	}
@@ -41,7 +41,7 @@ $btn-border-width: 2px;
 		background: $secondary-color;
 		color: $white;
 		&:hover {
-			background-color: $blue2;
+			background-color: darken($secondary-color, 10);
 			color: $white;
 		}
 	}
