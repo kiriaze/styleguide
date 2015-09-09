@@ -191,7 +191,7 @@ gulp.task('styleguide', function() {
 			// console.log(file);
 			return JSON.parse(fs.readFileSync(path.dirname(file.path) + '/_data.json')); // running watch and because require calls are cached, changes to json don't show up unless you restart the task
 		}))
-		.pipe(plugins.jade())
+		.pipe(plugins.jade({pretty: true}))
 		.pipe(plugins.concat('modules.html'))
 		.pipe(gulp.dest(config.src.root))
 		.pipe(browserSync.reload({stream:true}))

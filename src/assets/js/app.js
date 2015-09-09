@@ -127,7 +127,7 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 		$.each($(codeToCreateSnippetClass), function(index, val) {
 			// console.log($(val), val);
 			var snippetClassName = codeToCreateSnippetClass.substr(1);
-			var snippet = tidy_html5(val.outerHTML.replace(' ' + snippetClassName, '').replace(snippetClassName, ''), options);
+			var snippet = $(val)[0].outerHTML;
 			$(val).before('<a href="javascript:;" class="' + codeSnippetsClass.replace('.', '') + '"></a>');
 			$(val).after('<pre class="language-markup"><code>' + $('<p/>').text(snippet).html() + '</code></pre>').next().hide();
 		});
