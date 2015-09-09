@@ -1,0 +1,31 @@
+{
+	"id": "buttons",
+	"name": "Buttons",
+	"hasScript": "yes",
+	"items": [
+	    {
+	        "buttonName" : "Basic Button",
+	        "className": "btn btn-black"
+	    },
+	    {
+	        "buttonName" : "Light Button",
+	        "className": "btn btn-light"
+	    },
+	    {
+	        "buttonName" : "Primary Button",
+	        "className": "btn btn-primary"
+	    },
+	    {
+	        "buttonName" : "Inverted Button",
+	        "className": "btn btn-invert"
+	    },
+	    {
+	        "buttonName" : "Ghost Button",
+	        "className": "btn btn-ghost"
+	    },
+	    {
+	        "buttonName" : "Inverted Ghost",
+	        "className": "btn btn-invert btn-ghost"
+	    }
+	]
+}

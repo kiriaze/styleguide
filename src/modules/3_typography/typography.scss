@@ -1,0 +1,97 @@
+@import "../0_settings/settings.scss";
+
+@import url('//fonts.googleapis.com/css?family=Lato:900,400,700,300|Oswald:400,700,300|Libre+Baskerville:400');
+
+.font-oswald {
+	font-family: $header-font;
+	font-weight: 700;
+}
+.font-lato {
+	font-family: $body-font;
+}
+.font-libre-baskerville {
+	font-family: 'Libre Baskerville', $body-font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	font-weight: normal;
+	margin-top: 0;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+h1 {
+	font-size: 40px;
+	line-height: 50px;
+}
+
+h2 {
+	font-size: 34px;
+}
+
+h3 {
+	font-size: 30px;
+}
+
+h4 {
+	font-size: 26px;
+}
+
+h5 {
+	font-size: 22px;
+}
+
+h6 {
+	font-size: 18px;
+}
+
+.text-align-center {
+	text-align: center;
+}
+
+.text-align-right {
+	text-align: right;
+}
+
+.text-align-left {
+	text-align: left;
+}
+
+p {
+	font-family: $body-font;
+	font-size: 16px;
+	line-height: 2;
+	margin: 2em 0;
+}
+
+.p3 {
+	font-size: 15px;
+	line-height: 1.8;
+	color: #666;
+}
+
+.small-3 {
+	@include breakpoint($small) {
+		max-width: 30%;
+	}
+}
+
+[contenteditable="true"] {
+	// border: 2px solid transparent;
+	// padding: 1rem;
+	&:hover {
+		// border: 2px dashed $secondary-color;
+	}
+	&:focus {
+	    outline: none;
+	    // border: 2px dashed $primary-color;
+	}
+}

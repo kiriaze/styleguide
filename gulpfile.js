@@ -1,0 +1,263 @@
+var gulp           = require('gulp'),
+	browserSync    = require('browser-sync'),
+	del            = require('del'),
+	// gulp-load-plugins will only load plugins prefixed with gulp
+	plugins        = require('gulp-load-plugins')(),
+	path           = require('path'),
+	mainBowerFiles = require('main-bower-files'),
+	browserify     = require('browserify'),
+	source         = require('vinyl-source-stream'),
+	buffer         = require('vinyl-buffer'),
+	runSequence    = require('run-sequence');
+
+// Notes:
+// Consider https://github.com/assemble/assemble
+//
+// This styleguide works as a standalone
+// but can possibly be included within your project
+// and separated by example below
+// gulpfile.js in your main project:
+	// require('./gulp');
+	// require('./styleguide/gulp');
+
+// Config
+config = {
+
+	'serverport': 3000,
+
+	'styles': {
+		'src' : 'src/assets/scss',
+		'dest': 'dist/assets/css',
+		'order': []
+	},
+
+	'scripts': {
+		'src' : 'src/assets/js',
+		'dest': 'dist/assets/js',
+		'order': [
+			'**/**/jquery.js',
+			'**/**/jquery.easing.js',
+			'**/**/*.js'
+		]
+	},
+
+	// gh-pages default pushes to gh-pages branch.
+	// remoteUrl: '', By default gulp-gh-pages assumes the current working directory is a git repository and uses its remote url. If your gulpfile.js is not in a git repository, or if you want to push to a different remote url ( username.github.io ), you can specify it. Ensure you have write access to the repository.
+	// branch by default is gh-pages. set to master for username.github.io
+	// set source to what dir you want to push to github
+	'githubPages': {
+		'remoteUrl'	: '',
+		'branch'	: '',
+		'source'	: 'dist/**/*'
+	},
+
+	'bowerDir' : 'src/assets/vendor' ,
+
+	'src' : {
+		'root' : 'src'
+	},
+
+	'dist': {
+		'root'  : 'dist'
+	}
+}
+
+var options = {
+    remoteUrl: config.githubPages.remoteUrl,
+    branch: config.githubPages.branch
+};
+
+gulp.task('gh-pages', function() {
+	return gulp.src(config.githubPages.source)
+		.pipe(ghPages(options));
+});
+
+
+// Development Tasks
+// -----------------
+
+gulp.task('bower', function() {
+	return plugins.bower(config.bowerDir)
+    	.pipe(gulp.dest(config.bowerDir))
+});
+
+// Start browserSync server
+// lsof -i tcp:3000
+// kill -9 PID
+gulp.task('browserSync', function() {
+	browserSync({
+		server: {
+			baseDir: config.dist.root
+		},
+		port: config.serverport
+		// Can't have both server and proxy, pick one.
+		// proxy: {
+		// 	target: 'http://site.dev'
+		// }
+	});
+});
+
+// sass
+gulp.task('sass', function() {
+
+	var files = mainBowerFiles('**/*.css');
+	console.log('css bower files: ', files);
+
+	// targets single file instead of dir since gulp runs better
+	files.push(config.styles.src + '/main.scss');
+
+	return gulp.src(files)
+		.pipe(plugins.sourcemaps.init())
+			.pipe(plugins.sass({
+				outputStyle: 'compressed'
+			}).on('error', plugins.sass.logError))
+			.pipe(plugins.autoprefixer('last 2 versions'))
+			.pipe(plugins.sourcemaps.write('../maps'))
+		.pipe(gulp.dest(config.styles.dest))
+		.pipe(browserSync.reload({stream: true}));
+});
+
+// minify, concat, uglify, sourcemap, rename JS
+gulp.task('js', function(){
+
+	var files = mainBowerFiles('**/*.js');
+	console.log('js bower files: ', files);
+
+	// everything but src/app.js, then add dist/app.js since browserify outputs that
+	files.push(config.scripts.src + '/**/*.js', '!' + config.scripts.src + '/app.js');
+	files.push(config.scripts.dest + '/app.js');
+
+	return gulp.src(files)
+		.pipe(plugins.sourcemaps.init())
+			.pipe(plugins.order(config.scripts.order))
+			.pipe(plugins.uglify())
+			.pipe(plugins.concat('app.js'))
+		.pipe(plugins.sourcemaps.write('./')) // writing relative to gulp.dest path
+		.pipe(gulp.dest(config.scripts.dest))
+		.pipe(browserSync.reload({stream:true}))
+});
+
+// 1.browserify ( for requiring modules ), 2. js
+gulp.task('browserify', function() {
+
+	var b = browserify({
+		entries: config.scripts.src + '/app.js',
+		// entries: files, // need globbing recipe..
+		debug: true
+	});
+
+	return b.bundle()
+		.pipe(source('app.js'))
+		.pipe(buffer())
+		.pipe(plugins.sourcemaps.init({loadMaps: true}))
+			// Add transformation tasks to the pipeline here.
+			.pipe(plugins.uglify())
+		.pipe(plugins.sourcemaps.write('./'))
+		.pipe(gulp.dest(config.scripts.dest));
+
+});
+
+// Optimizing Images
+gulp.task('images', function() {
+	return gulp.src(config.src.root + '/assets/images/**/*.+(png|jpg|jpeg|gif|svg)')
+	// Caching images that ran through imagemin
+	.pipe(plugins.cache(plugins.imagemin({
+		interlaced: true,
+	})))
+	.pipe(gulp.dest(config.dist.root + '/assets/images'))
+});
+
+// Copying fonts
+gulp.task('fonts', function() {
+	return gulp.src(config.src.root + '/assets/fonts/**/*')
+	.pipe(gulp.dest(config.dist.root + '/assets/fonts'))
+});
+
+// Cleaning
+gulp.task('clean', function(callback) {
+	del(config.dist.root);
+	return plugins.cache.clearAll(callback);
+});
+
+
+// json/jade styleguide
+gulp.task('styleguide', function() {
+
+	// if file exists, delete it before recreating it
+	// since jade isnt updating the concat file otherwise
+	var fs 		= require('fs'),
+		modules = config.src.root + '/modules.html';
+	if ( fs.existsSync(modules) ) {
+		del(modules)
+	} else {
+		console.log('FILE DOES NOT EXIST');
+	}
+
+	return gulp.src(config.src.root + '/modules/**/*.jade')
+		.pipe(plugins.data(function(file) {
+			// console.log(file);
+			// return require(path.dirname(file.path) + '/_data.json');
+			return JSON.parse(fs.readFileSync(path.dirname(file.path) + '/_data.json')); // running watch and because require calls are cached, changes to json don't show up unless you restart the task
+		}))
+		.pipe(plugins.jade())
+		.pipe(plugins.concat('modules.html'))
+		.pipe(gulp.dest(config.src.root))
+		.pipe(browserSync.reload({stream:true}))
+});
+
+// fileinclude partials
+gulp.task('fileinclude', function() {
+	gulp.src([config.src.root + '/index.html']) // only target index, dont want anything else sent to dist
+		.pipe(plugins.fileInclude())
+		.pipe(gulp.dest(config.dist.root))
+		.pipe(browserSync.reload({stream:true}))
+});
+
+// html - have fileinclude run before html so nothing breaks
+gulp.task('html', ['fileinclude'], function() {
+	gulp.src([config.src.root + '/**/*.html'])
+		.pipe(gulp.dest(config.dist.root));
+});
+
+
+// Watchers
+gulp.task('watch', function() {
+
+	gulp.watch(config.src.root + '/**/*.scss', ['sass']);
+	gulp.watch(config.src.root + '/**/*.js', function(){
+		// required to run sequentially
+		runSequence('browserify','js')
+	});
+
+	gulp.watch(config.src.root + '/**/*.html', ['fileinclude']);
+
+	// styleguide jade watch
+	gulp.watch([
+		config.src.root + '/modules/**/*.jade',
+		config.src.root + '/modules/**/*.json'
+	], function(){
+		// required to run sequentially
+		runSequence('styleguide', 'fileinclude')
+	}, browserSync.reload);
+
+});
+
+// Build Sequences
+// ---------------
+
+gulp.task('default', function(callback) {
+	runSequence(
+		'clean',
+		'bower',
+		'styleguide',
+		'fileinclude',
+		'sass',
+		'browserify',
+		'js',
+		'images',
+		'fonts',
+		'browserSync',
+		'watch',
+		callback
+	)
+});
