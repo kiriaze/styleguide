@@ -69,7 +69,7 @@ var options = {
 
 gulp.task('gh-pages', function() {
 	return gulp.src(config.githubPages.source)
-		.pipe(ghPages(options));
+		.pipe(plugins.ghPages(options));
 });
 
 
