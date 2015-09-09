@@ -24,9 +24,9 @@ Clone or Download Styleguide.
 
 ### 2. Install
 
-Run Node Package Manager
+Change directory into cloned project & run Node Package Manager
 
-	$ npm install --global gulp && npm install
+	$ cd styleguide && npm install --global gulp && npm install
 
 *This will install Gulp globally. Depending on your user account, you may need to configure your system to install packages globally without administrative privileges.*
 
@@ -48,8 +48,11 @@ Want to push it to github pages?
 **Boom goes the dynamite.**
 
 ### ToDo's
-Consider https://github.com/assemble/assemble
+Consider https://github.com/assemble/assemble or replacing jade with handlebars, swig or something similar.
 
-This styleguide works as a standalone but can possibly be included within your project and separated by example below gulpfile.js in your main project:
-// require('./gulp');
-// require('./styleguide/gulp');
+This styleguide works as a standalone but can possibly be included within your project and separated by example below.
+
+gulpfile.js in your main project:
+
+	require('./gulp');
+	require('./styleguide/gulp');
