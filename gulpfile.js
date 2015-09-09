@@ -62,6 +62,7 @@ config = {
 	}
 }
 
+// GH Pages
 var options = {
     remoteUrl: config.githubPages.remoteUrl,
     branch: config.githubPages.branch
@@ -73,9 +74,7 @@ gulp.task('gh-pages', function() {
 });
 
 
-// Development Tasks
-// -----------------
-
+// Init/install Bower
 gulp.task('bower', function() {
 	return plugins.bower(config.bowerDir)
     	.pipe(gulp.dest(config.bowerDir))
@@ -97,7 +96,7 @@ gulp.task('browserSync', function() {
 	});
 });
 
-// sass
+// Compile, concat, minify, autoprefix and sourcemap SCSS + bower
 gulp.task('sass', function() {
 
 	var files = mainBowerFiles('**/*.css');
@@ -117,7 +116,7 @@ gulp.task('sass', function() {
 		.pipe(browserSync.reload({stream: true}));
 });
 
-// minify, concat, uglify, sourcemap, rename JS
+// minify, concat, uglify, sourcemap + bower
 gulp.task('js', function(){
 
 	var files = mainBowerFiles('**/*.js');
@@ -137,7 +136,7 @@ gulp.task('js', function(){
 		.pipe(browserSync.reload({stream:true}))
 });
 
-// 1.browserify ( for requiring modules ), 2. js
+// Browserify ( for requiring modules ) ran before js task
 gulp.task('browserify', function() {
 
 	var b = browserify({
@@ -197,7 +196,7 @@ gulp.task('styleguide', function() {
 		.pipe(browserSync.reload({stream:true}))
 });
 
-// fileinclude partials
+// fileinclude partials. e.g. modules.html into index.html
 gulp.task('fileinclude', function() {
 	gulp.src([config.src.root + '/index.html']) // only target index, dont want anything else sent to dist
 		.pipe(plugins.fileInclude())
