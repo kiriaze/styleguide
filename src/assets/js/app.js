@@ -32,8 +32,8 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 		SHORTNAME.elems.body          =	$('body');
 		SHORTNAME.elems.scrollToTop   =	$('a[data-scroll-to="top"]');
 
-		SHORTNAME.toggleSidebar       = $('.toggle-sidebar');
-		SHORTNAME.headerBreakpoints   = $('.styleguide-header-breakpoints');
+		SHORTNAME.elems.toggleSidebar       = $('.toggle-sidebar');
+		SHORTNAME.elems.headerBreakpoints   = $('.styleguide-header-breakpoints');
 
 	};
 
@@ -80,16 +80,16 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 		// Target your .container, .wrapper, .post, etc.
 		// SHORTNAME.elems.body.fitVids();
 
-		SHORTNAME.toggleSidebar.on('click',function(){
-			SHORTNAME.body.toggleClass('sidebar-open');
+		SHORTNAME.elems.toggleSidebar.on('click',function(){
+			SHORTNAME.elems.body.toggleClass('sidebar-open');
 		});
 
 	};
 
 	SHORTNAME.breakpointToggle = function(){
-		SHORTNAME.headerBreakpoints.find('a').on('click', function(){
+		SHORTNAME.elems.headerBreakpoints.find('a').on('click', function(){
 			var size = $(this).data('breakpoint-size');
-			SHORTNAME.headerBreakpoints.find('a').removeClass('active');
+			SHORTNAME.elems.headerBreakpoints.find('a').removeClass('active');
 			$(this).addClass('active');
 			$('.primary').attr('data-breakpoint-size', size);
 		});
