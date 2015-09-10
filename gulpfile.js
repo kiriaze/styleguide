@@ -1,5 +1,6 @@
 var gulp           = require('gulp'),
 	browserSync    = require('browser-sync'),
+	bs             = browserSync.create(),
 	del            = require('del'),
 	// gulp-load-plugins will only load plugins prefixed with gulp
 	plugins        = require('gulp-load-plugins')(),
@@ -84,7 +85,8 @@ gulp.task('bower', function() {
 // lsof -i tcp:3000
 // kill -9 PID
 gulp.task('browserSync', function() {
-	browserSync({
+	// Now init the Browsersync server
+	bs.init({
 		server: {
 			baseDir: config.dist.root
 		},
@@ -95,6 +97,7 @@ gulp.task('browserSync', function() {
 		// }
 	});
 });
+
 
 // Compile, concat, minify, autoprefix and sourcemap SCSS + bower
 gulp.task('sass', function() {
@@ -113,7 +116,8 @@ gulp.task('sass', function() {
 			.pipe(plugins.autoprefixer('last 2 versions'))
 			.pipe(plugins.sourcemaps.write('../maps'))
 		.pipe(gulp.dest(config.styles.dest))
-		.pipe(browserSync.reload({stream: true}));
+		.pipe(plugins.filter('**/*.css')) // filters out css so browsersync css injection can work with sourcemaps
+		.pipe(bs.reload({stream: true}));
 });
 
 // minify, concat, uglify, sourcemap + bower
@@ -134,7 +138,7 @@ gulp.task('js', function(){
 			.pipe(plugins.concat('app.js'))
 		.pipe(plugins.sourcemaps.write('./')) // writing relative to gulp.dest path
 		.pipe(gulp.dest(config.scripts.dest))
-		.pipe(browserSync.reload({stream:true}))
+		.pipe(bs.reload({stream:true}))
 });
 
 // Browserify ( for requiring modules ) ran before js task
@@ -189,18 +193,20 @@ gulp.task('clean', function(callback) {
 // json/jade styleguide
 gulp.task('styleguide', function() {
 
-	var fs 		= require('fs'),
-		modules = config.src.root + '/modules.html';
+	var fs 		= require('fs');
 
 	return gulp.src(config.src.root + '/modules/**/*.jade')
 		.pipe(plugins.data(function(file) {
 			// console.log(file);
 			return JSON.parse(fs.readFileSync(path.dirname(file.path) + '/_data.json')); // running watch and because require calls are cached, changes to json don't show up unless you restart the task
 		}))
-		.pipe(plugins.jade({pretty: true}))
+		.pipe(plugins.jade({pretty: true})
+			.on('error', function(err) {
+				console.log(err)
+			}))
 		.pipe(plugins.concat('modules.html'))
 		.pipe(gulp.dest(config.src.root))
-		.pipe(browserSync.reload({stream:true}))
+		.pipe(bs.reload({stream:true}))
 });
 
 // fileinclude partials. e.g. modules.html into index.html
@@ -208,7 +214,7 @@ gulp.task('fileinclude', function() {
 	gulp.src([config.src.root + '/index.html']) // only target index, dont want anything else sent to dist
 		.pipe(plugins.fileInclude())
 		.pipe(gulp.dest(config.dist.root))
-		.pipe(browserSync.reload({stream:true}))
+		.pipe(bs.reload({stream:true}))
 });
 
 // html - have fileinclude run before html so nothing breaks
@@ -221,22 +227,44 @@ gulp.task('html', ['fileinclude'], function() {
 // Watchers
 gulp.task('watch', function() {
 
-	gulp.watch(config.src.root + '/**/*.scss', ['sass']);
-	gulp.watch(config.src.root + '/**/*.js', function(){
-		// required to run sequentially
-		runSequence('browserify','js')
+	// utilizing browsersync.watch - much faster than gulp.watch
+
+	bs.watch(config.src.root + '/**/*.html', function (event, file) {
+		if ( event === 'change' ) {
+			runSequence('fileinclude', bs.reload)
+		}
 	});
 
-	gulp.watch(config.src.root + '/**/*.html', ['fileinclude']);
+	bs.watch(config.src.root + '/**/*.scss', function (event, file) {
+		if ( event === 'change' ) {
+			runSequence('sass')
+			bs.reload('*.css'); // for injection only
+		}
+	});
 
-	// styleguide jade watch
-	gulp.watch([
+	bs.watch(config.src.root + '/**/*.js', function (event, file) {
+		if ( event === 'change' ) {
+			// required to run sequentially
+			runSequence('browserify', 'js', bs.reload)
+		}
+	});
+
+	bs.watch(config.src.root + '/**/*.js', function (event, file) {
+		if ( event === 'change' ) {
+			// required to run sequentially
+			runSequence('browserify', 'js', bs.reload)
+		}
+	});
+
+	bs.watch([
 		config.src.root + '/modules/**/*.jade',
 		config.src.root + '/modules/**/*.json'
-	], function(){
-		// required to run sequentially
-		runSequence('styleguide', 'fileinclude')
-	}, browserSync.reload);
+	], function(event, file){
+		if ( event === 'change' ) {
+			// required to run sequentially
+			runSequence('styleguide', 'fileinclude', bs.reload)
+		}
+	});
 
 });
 
