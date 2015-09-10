@@ -81,7 +81,27 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 		// SHORTNAME.elems.body.fitVids();
 
 		SHORTNAME.elems.toggleSidebar.on('click',function(){
-			SHORTNAME.elems.body.toggleClass('sidebar-open');
+			SHORTNAME.elems.body.add(SHORTNAME.elems.html).toggleClass('sidebar-open');
+		});
+
+		var width = $window.width();
+
+		var sidebarToggle = function() {
+			if ( width > 768 ) {
+				SHORTNAME.elems.body.add(SHORTNAME.elems.html).addClass('sidebar-open');
+			} else {
+				SHORTNAME.elems.body.add(SHORTNAME.elems.html).removeClass('sidebar-open');
+			}
+		}
+
+		sidebarToggle();
+
+		$window.resize(function(e) {
+			if ( $window.width() != width ) {
+				// DO RESIZE
+				width = $window.width();
+				sidebarToggle();
+			}
 		});
 
 	};
@@ -143,7 +163,7 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 	};
 
 	$window.load(function() {
-
+		SHORTNAME.elems.body.addClass('loaded');
 	});
 
 	$window.resize(function(event) {

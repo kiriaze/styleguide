@@ -11,7 +11,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!--Favicon-->
-	<link rel="icon" type="image/png" href="./favicon.ico">
+	<link rel="icon" type="image/png" href="./assets/images/favicon.png">
 
 	<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
 
@@ -19,29 +19,29 @@
 	<link rel="stylesheet" href="./assets/css/main.css">
 
 </head>
-	<body class="sidebar-open">
+	<body>
+		<header class="styleguide-header">
+			<span class="toggle-sidebar">Menu | </span>
+			<span class="styleguide-meta">Styleguide - v.1</span>
+			<nav class="styleguide-header-breakpoints">
+				<ul>
+					<li><a href="javascript:;" class="breakpoint-toggle-tiny" data-breakpoint-size="tiny">Tiny</a></li>
+					<li><a href="javascript:;" class="breakpoint-toggle-small" data-breakpoint-size="small">Small</a></li>
+					<li><a href="javascript:;" class="breakpoint-toggle-medium" data-breakpoint-size="medium">Medium</a></li>
+					<li><a href="javascript:;" class="breakpoint-toggle-large" data-breakpoint-size="large">Large</a></li>
+				</ul>
+			</nav>
+		</header>
 		<main id="main">
-			<header class="styleguide-header">
-				<span class="toggle-sidebar">Menu | </span>
-				<span class="styleguide-meta">Styleguide - v.1</span>
-				<nav class="styleguide-header-breakpoints">
-					<ul>
-						<li><a href="javascript:;" class="breakpoint-toggle-tiny" data-breakpoint-size="tiny">Tiny</a></li>
-						<li><a href="javascript:;" class="breakpoint-toggle-small" data-breakpoint-size="small">Small</a></li>
-						<li><a href="javascript:;" class="breakpoint-toggle-medium" data-breakpoint-size="medium">Medium</a></li>
-						<li><a href="javascript:;" class="breakpoint-toggle-large" data-breakpoint-size="large">Large</a></li>
-					</ul>
-				</nav>
-			</header>
-			<aside class="sidebar">
-				<nav id="nav"></nav>
-				<img src="./assets/images/logo_placeholder.png" alt="" class="logo">
-			</aside>
 			<div class="primary">
 				<!-- include styleguide here -->
 				@@include('modules.html')
 			</div>
 		</main>
+		<aside class="sidebar">
+			<img src="./assets/images/logo_placeholder.png" alt="" class="logo">
+			<nav id="nav"></nav>
+		</aside>
 		<script src="./assets/js/app.js"></script>
 	</body>
 </html>

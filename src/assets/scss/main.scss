@@ -38,7 +38,7 @@ body {
 	-webkit-font-smooth: always;
 	-webkit-font-smoothing: antialiased;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.01);
-	background: #fff;
+	background: $light-grey;
 
 	overflow-scrolling: touch;
 	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
@@ -46,10 +46,17 @@ body {
 	text-size-adjust: none;
 
 	transition: $transition;
-	@include breakpoint($small) {
-		&.sidebar-open {
-			margin-left: 240px;
-		}
+	opacity: 0;
+	&.loaded {
+		opacity: 1;
+	}
+}
+
+html,
+body {
+	&.sidebar-open {
+		overflow-x: hidden;
+		overflow-y: visible;
 	}
 }
 
@@ -69,11 +76,17 @@ a {
 }
 
 #main {
-	@include breakpoint($small) {
-		margin-top: 76px;
-		background: $light-grey;
+	width: 100%;
+	margin-top: 76px;
+	transition: $transition;
+	.sidebar-open & {
+		transform: translate(240px, 0);
+		@include breakpoint($small) {
+			width: calc(100% - 240px);
+		}
 	}
 }
+
 
 header {
 	overflow: hidden;
@@ -81,13 +94,11 @@ header {
 	padding: 0 2rem;
 	border-bottom: 1px solid #ddd;
 	background: white;
-	@include breakpoint($small) {
-		position: fixed;
-		z-index: 1;
-		top: 0;
-		left: 0;
-		right: 0;
-	}
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	right: 0;
 	.sidebar-toggle {
 		float: left;
 	}
@@ -137,25 +148,34 @@ header {
 }
 
 .sidebar {
+	position: fixed;
+	height: calc(100% - 75px);
+	top: 75px;
+	left: 0;
+	background-color: #fff;
 	border-bottom: 1px solid #ddd;
-	@include breakpoint($small) {
-		position: fixed;
-		height: 100%;
-		background-color: #fff;
-		border-right: 1px solid #ddd;
-		border-bottom: none;
-		width: $sidebar-width;
-		left: -$sidebar-width;
-		transition: $transition;
-		.sidebar-open & {
-			left: 0;
-		}
+	border-right: 1px solid #ddd;
+	border-bottom: none;
+	width: $sidebar-width;
+	transform: translateX(-$sidebar-width);
+	transition: $transition;
+
+	overflow-y: scroll;
+	overflow-scrolling: touch;
+
+	.sidebar-open & {
+		transform: translateX(0);
 	}
 	.logo {
-		position: absolute;
-		bottom: 0;
-		left: 50%;
-		transform: translate(-50%, -50%);
+		margin: 25px auto 0;
+		width: 140px;
+		display: block;
+		@include breakpoint($small) {
+			position: absolute;
+			bottom: 75px; // height of header
+			left: 50%;
+			transform: translate(-50%, -25%);
+		}
 	}
 	#nav {
 		padding: 2rem 0;
@@ -178,10 +198,9 @@ header {
 		position: relative;
 		overflow: hidden;
 		background: $light-grey;
-		box-shadow: 0px 0px 3px darken($light-grey, 10);
 		transition: $transition;
-		transform: translateX(-50%);
-		left: calc(50%);
+		max-width: 100%;
+		margin: 0 auto;
 		&[data-breakpoint-size='tiny'] {
 			max-width: $tiny;
 		}
@@ -197,9 +216,12 @@ header {
 		}
 	}
 	> section.module {
-		padding: 5rem;
 		border-bottom: 1px solid #ddd;
 		background: white;
+		padding: 2rem;
+		@include breakpoint($small) {
+			padding: 5rem;
+		}
 		> h2 {
 			margin-bottom: 2rem;
 		}
@@ -247,5 +269,4 @@ header {
     opacity: .5;
     margin-bottom: 15px;
     position: relative;
-    z-index: 9;
 }
