@@ -99,8 +99,18 @@ header {
 	top: 0;
 	left: 0;
 	right: 0;
-	.sidebar-toggle {
+	.toggle-sidebar {
 		float: left;
+		cursor: pointer;
+		width: 24px;
+		margin-right: 1rem;
+		background: url(../images/hamburger.svg) no-repeat center;
+		text-indent: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		.sidebar-open & {
+			background: url(../images/close.svg) no-repeat center;
+		}
 	}
 	nav {
 		display: none;
