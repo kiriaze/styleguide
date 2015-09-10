@@ -160,17 +160,23 @@ gulp.task('browserify', function() {
 // Optimizing Images
 gulp.task('images', function() {
 	return gulp.src(config.src.root + '/assets/images/**/*.+(png|jpg|jpeg|gif|svg)')
-	// Caching images that ran through imagemin
-	.pipe(plugins.cache(plugins.imagemin({
-		interlaced: true,
-	})))
-	.pipe(gulp.dest(config.dist.root + '/assets/images'))
+		// Caching images that ran through imagemin
+		.pipe(plugins.cache(plugins.imagemin({
+			interlaced: true,
+		})))
+		.pipe(gulp.dest(config.dist.root + '/assets/images'))
 });
 
 // Copying fonts
 gulp.task('fonts', function() {
 	return gulp.src(config.src.root + '/assets/fonts/**/*')
-	.pipe(gulp.dest(config.dist.root + '/assets/fonts'))
+		.pipe(gulp.dest(config.dist.root + '/assets/fonts'))
+});
+
+// CNAME
+gulp.task('cname',function(){
+	return gulp.src('CNAME')
+		.pipe(gulp.dest(config.dist.root))
 });
 
 // Cleaning
@@ -248,6 +254,7 @@ gulp.task('default', function(callback) {
 		'js',
 		'images',
 		'fonts',
+		'cname',
 		'browserSync',
 		'watch',
 		callback

@@ -1,6 +1,7 @@
 @import
 	'prism',
 	'../../modules/0_settings/settings.scss',
+	'colors',
 	'../vendor/s-grid/breakpoints',
 	'../vendor/s-grid/grid',
 	'../../modules/1_introduction/introduction.scss',
@@ -43,6 +44,13 @@ body {
 	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 
 	text-size-adjust: none;
+
+	transition: $transition;
+	@include breakpoint($small) {
+		&.sidebar-open {
+			margin-left: 240px;
+		}
+	}
 }
 
 ul,
@@ -143,6 +151,12 @@ header {
 			left: 0;
 		}
 	}
+	.logo {
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
 	#nav {
 		padding: 2rem 0;
 		a {
@@ -164,16 +178,10 @@ header {
 		position: relative;
 		overflow: hidden;
 		background: $light-grey;
+		box-shadow: 0px 0px 3px darken($light-grey, 10);
 		transition: $transition;
 		transform: translateX(-50%);
 		left: calc(50%);
-		.sidebar-open & {
-			left: calc(50% + (#{$sidebar-width} / 2));
-			width: calc(100% - #{$sidebar-width});
-			max-width: calc(100% - #{$sidebar-width});
-		}
-	}
-	@include breakpoint($small) {
 		&[data-breakpoint-size='tiny'] {
 			max-width: $tiny;
 		}
@@ -196,7 +204,7 @@ header {
 			margin-bottom: 2rem;
 		}
 		p a {
-			border-bottom: 1px solid $gray;
+			border-bottom: 1px solid $light-grey;
 			padding-bottom: .25rem;
 		}
 	}

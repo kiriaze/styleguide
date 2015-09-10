@@ -25,15 +25,15 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 	};
 
 	SHORTNAME.setElements = function(){
-		SHORTNAME.elems               = {};
+		SHORTNAME.elems                   = {};
 
 		// defaults
-		SHORTNAME.elems.html          =	$('html');
-		SHORTNAME.elems.body          =	$('body');
-		SHORTNAME.elems.scrollToTop   =	$('a[data-scroll-to="top"]');
+		SHORTNAME.elems.html              =	$('html');
+		SHORTNAME.elems.body              =	$('body');
+		SHORTNAME.elems.scrollToTop       =	$('a[data-scroll-to="top"]');
 
-		SHORTNAME.elems.toggleSidebar       = $('.toggle-sidebar');
-		SHORTNAME.elems.headerBreakpoints   = $('.styleguide-header-breakpoints');
+		SHORTNAME.elems.toggleSidebar     = $('.toggle-sidebar');
+		SHORTNAME.elems.headerBreakpoints = $('.styleguide-header-breakpoints');
 
 	};
 
