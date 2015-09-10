@@ -1,8 +1,8 @@
 ### Styleguide
 ---
 
-A gulp flavored styleguide inspired by Huge's styleguide, utilizing jade/json but in a cleaner, extendable format.
-Includes Browserify, sourcemaps, sass minification/concatenation, auto bower setup and concatenation of files, browser-sync, gh-pages and more.
+A gulp flavored styleguide inspired by Huge's styleguide, utilizing jade & json on top of an easily extendable format.
+It comes preconfigured with Browserify, sourcemaps, libsass, optimization, bower, browser-sync, gh-pages and more.
 
 ### Get started
 It's easy to get started. Just follow the steps below.
