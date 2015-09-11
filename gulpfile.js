@@ -9,7 +9,10 @@ var gulp           = require('gulp'),
 	browserify     = require('browserify'),
 	source         = require('vinyl-source-stream'),
 	buffer         = require('vinyl-buffer'),
-	runSequence    = require('run-sequence');
+	runSequence    = require('run-sequence'),
+	glob           = require('glob'),
+	fs             = require('fs'),
+	es             = require('event-stream');
 
 // Notes:
 // Consider https://github.com/assemble/assemble
@@ -98,15 +101,19 @@ gulp.task('browserSync', function() {
 	});
 });
 
+// parted out mainbowerfiles into its own function
+gulp.task('mbf', function () {
+	gulp.src(mainBowerFiles({includeDev: true}).filter(function (f) { return f.substr(-2) === 'js'; }))
+		.pipe(plugins.uglify())
+		.pipe(plugins.concat('vendor.js'))
+		.pipe(gulp.dest('dist/assets/js/'));
+});
+
 
 // Compile, concat, minify, autoprefix and sourcemap SCSS + bower
 gulp.task('sass', function() {
 
-	var files = mainBowerFiles('**/*.css');
-	console.log('css bower files: ', files);
-
-	// targets single file instead of dir since gulp runs better
-	files.push(config.styles.src + '/main.scss');
+	var files = config.styles.src + '/main.scss';
 
 	return gulp.src(files)
 		.pipe(plugins.sourcemaps.init())
@@ -121,22 +128,16 @@ gulp.task('sass', function() {
 });
 
 // minify, concat, uglify, sourcemap + bower
-// note: instead of running mainBowerFiles within js task, slowing down the watch task - pull out into its own task, and render a file separate from app.js like plugins.js and require it within app.js
 gulp.task('js', function(){
 
-	var files = mainBowerFiles('**/*.js');
-	console.log('js bower files: ', files);
-
-	// everything but src/app.js, then add dist/app.js since browserify outputs that
-	files.push(config.scripts.src + '/**/*.js', '!' + config.scripts.src + '/app.js');
-	files.push(config.scripts.dest + '/app.js');
+	var files = [config.scripts.dest + '/modules.js', config.scripts.dest + '/app.js'];
 
 	return gulp.src(files)
 		.pipe(plugins.sourcemaps.init())
-			.pipe(plugins.order(config.scripts.order))
-			.pipe(plugins.uglify())
-			.pipe(plugins.concat('app.js'))
-		.pipe(plugins.sourcemaps.write('./')) // writing relative to gulp.dest path
+			// .pipe(plugins.order(config.scripts.order))
+			// .pipe(plugins.uglify()) // super slow
+			// .pipe(plugins.concat('app.js'))
+		.pipe(plugins.sourcemaps.write('../maps')) // writing relative to gulp.dest path
 		.pipe(gulp.dest(config.scripts.dest))
 		.pipe(bs.reload({stream:true}))
 });
@@ -144,20 +145,35 @@ gulp.task('js', function(){
 // Browserify ( for requiring modules ) ran before js task
 gulp.task('browserify', function() {
 
-	var b = browserify({
-		entries: config.scripts.src + '/app.js',
-		// entries: files, // need globbing recipe..
-		debug: true
+	// var globbedFiles = glob.sync(config.scripts.src + '/**/*.js');
+
+	// bundles
+	var files = [
+		config.scripts.src + '/app.js',
+		config.scripts.src + '/modules.js'
+    ];
+
+    var tasks = files.map(function(entry, output) {
+    	output = entry.replace('src/',''); // change entry/ouput
+		return browserify({
+			entries: [entry],
+			noParse: [config.bowerDir + '/jquery/dist/jquery.min.js']
+		})
+            .bundle()
+			.pipe(source(output))
+			// .pipe(buffer())
+			// .pipe(plugins.sourcemaps.init({loadMaps: true}))
+			// 	// Add transformation tasks to the pipeline here.
+			// 	.pipe(plugins.uglify())
+			// .pipe(plugins.sourcemaps.write('../maps'))
+			.pipe(gulp.dest(config.dist.root))
+			.pipe(bs.reload({
+				stream: true
+	        }))
 	});
 
-	return b.bundle()
-		.pipe(source('app.js'))
-		.pipe(buffer())
-		.pipe(plugins.sourcemaps.init({loadMaps: true}))
-			// Add transformation tasks to the pipeline here.
-			.pipe(plugins.uglify())
-		.pipe(plugins.sourcemaps.write('./'))
-		.pipe(gulp.dest(config.scripts.dest));
+	// create a merged stream
+    return es.merge.apply(null, tasks);
 
 });
 
@@ -189,11 +205,8 @@ gulp.task('clean', function(callback) {
 	return plugins.cache.clearAll(callback);
 });
 
-
 // json/jade styleguide
 gulp.task('styleguide', function() {
-
-	var fs 		= require('fs');
 
 	return gulp.src(config.src.root + '/modules/**/*.jade')
 		.pipe(plugins.data(function(file) {
@@ -203,15 +216,16 @@ gulp.task('styleguide', function() {
 		.pipe(plugins.jade({pretty: true})
 			.on('error', function(err) {
 				console.log(err)
-			}))
+			})
+		)
 		.pipe(plugins.concat('modules.html'))
 		.pipe(gulp.dest(config.src.root))
 		.pipe(bs.reload({stream:true}))
 });
 
-// fileinclude partials. e.g. modules.html into index.html
+// fileinclude partials. e.g. modules.html into styleguide.html
 gulp.task('fileinclude', function() {
-	gulp.src([config.src.root + '/index.html']) // only target index, dont want anything else sent to dist
+	gulp.src([config.src.root + '/**/*.html', '!' + config.src.root + '/assets/**/*.html'])
 		.pipe(plugins.fileInclude())
 		.pipe(gulp.dest(config.dist.root))
 		.pipe(bs.reload({stream:true}))
@@ -219,7 +233,7 @@ gulp.task('fileinclude', function() {
 
 // html - have fileinclude run before html so nothing breaks
 gulp.task('html', ['fileinclude'], function() {
-	gulp.src([config.src.root + '/**/*.html'])
+	gulp.src([config.src.root + '/index.html', config.src.root + '/styleguide.html'])
 		.pipe(gulp.dest(config.dist.root));
 });
 
@@ -231,7 +245,7 @@ gulp.task('watch', function() {
 
 	bs.watch(config.src.root + '/**/*.html', function (event, file) {
 		if ( event === 'change' ) {
-			runSequence('fileinclude', bs.reload)
+			runSequence('html', bs.reload)
 		}
 	});
 
@@ -239,13 +253,6 @@ gulp.task('watch', function() {
 		if ( event === 'change' ) {
 			runSequence('sass')
 			bs.reload('*.css'); // for injection only
-		}
-	});
-
-	bs.watch(config.src.root + '/**/*.js', function (event, file) {
-		if ( event === 'change' ) {
-			// required to run sequentially
-			runSequence('browserify', 'js', bs.reload)
 		}
 	});
 
@@ -275,8 +282,10 @@ gulp.task('default', function(callback) {
 	runSequence(
 		'clean',
 		'bower',
+		'mbf',
 		'styleguide',
 		'fileinclude',
+		'html',
 		'sass',
 		'browserify',
 		'js',

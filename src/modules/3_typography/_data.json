@@ -1,7 +1,6 @@
 {
     "id": "typography",
     "name": "Typography",
-    "hasScript": "yes",
     "items" : {
         "fonts": [
             {

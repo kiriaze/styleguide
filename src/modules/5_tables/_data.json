@@ -1,7 +1,6 @@
 {
   "id": "tables",
   "name": "Tables",
-  "hasScript": "yes",
   "items": {
       "tables": [
           {

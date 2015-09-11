@@ -38,7 +38,7 @@ body {
 	-webkit-font-smooth: always;
 	-webkit-font-smoothing: antialiased;
 	text-shadow: 0 1px 0 rgba(0,0,0,0.01);
-	background: $light-grey;
+	background: white;
 
 	overflow-scrolling: touch;
 	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
@@ -54,6 +54,7 @@ body {
 
 html,
 body {
+	height: 100%;
 	&.sidebar-open {
 		overflow-x: hidden;
 		overflow-y: visible;
@@ -77,12 +78,22 @@ a {
 
 #main {
 	width: 100%;
-	margin-top: 76px;
-	transition: $transition;
-	.sidebar-open & {
-		transform: translate(240px, 0);
+	height: 100%;
+	> .module {
+		border-bottom: 1px solid #ddd;
+		background: white;
+		padding: 2rem;
+		// max-width: $medium;
+		// margin: 0 auto;
 		@include breakpoint($small) {
-			width: calc(100% - 240px);
+			padding: 5rem;
+		}
+		> h2 {
+			margin-bottom: 2rem;
+		}
+		p a {
+			border-bottom: 1px solid $light-grey;
+			padding-bottom: .25rem;
 		}
 	}
 }
@@ -177,15 +188,15 @@ header {
 		transform: translateX(0);
 	}
 	.logo {
-		margin: 25px auto 0;
+		margin: 25px auto;
 		width: 140px;
 		display: block;
-		@include breakpoint($small) {
-			position: absolute;
-			bottom: 75px; // height of header
-			left: 50%;
-			transform: translate(-50%, -25%);
-		}
+		// @include breakpoint($small) {
+		// 	position: absolute;
+		// 	bottom: 75px; // height of header
+		// 	left: 50%;
+		// 	transform: translate(-50%, -25%);
+		// }
 	}
 	#nav {
 		padding: 2rem 0;
@@ -203,14 +214,54 @@ header {
 	}
 }
 
-.primary {
-	@include breakpoint($small) {
-		position: relative;
+.titles {
+	h1, h2, h3, h4, h5, h6 {
+		margin: 1rem 0 2.5rem 0;
+	}
+}
+
+.styleguide-iframe-wrapper {
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+	max-width: 100%;
+	position: relative;
+	left: 0;
+	padding: 0;
+	margin: 0;
+	max-width: initial;
+	transform: translate3d(0,0,0);
+	transition: left 0.2s cubic-bezier(0.37,0.62,0.47,0.72),width 0.2s cubic-bezier(0.37,0.62,0.47,0.72);
+	transition: $transition;
+	background-color: #eee;
+	position: relative;
+
+	.sidebar-open & {
+		left: 240px;
+		@include breakpoint($small) {
+			width: calc(100% - 240px);
+		}
+	}
+
+	iframe {
+		border: 0;
+		width: 100%;
+		height: 100%;
 		overflow: hidden;
-		background: $light-grey;
-		transition: $transition;
+		overflow-x: hidden;
+		overflow-y: hidden;
+		height: calc(100% - 74px)!important;
+		width: 100%;
 		max-width: 100%;
+		position: absolute;
+		top: 74px;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		transition: max-width 0.2s ease-in-out;
+		transition: $transition;
 		margin: 0 auto;
+
 		&[data-breakpoint-size='tiny'] {
 			max-width: $tiny;
 		}
@@ -224,24 +275,35 @@ header {
 			// max-width: $large;
 			max-width: 100%;
 		}
-	}
-	> section.module {
-		border-bottom: 1px solid #ddd;
-		background: white;
-		padding: 2rem;
-		@include breakpoint($small) {
-			padding: 5rem;
-		}
-		> h2 {
-			margin-bottom: 2rem;
-		}
-		p a {
-			border-bottom: 1px solid $light-grey;
-			padding-bottom: .25rem;
-		}
+
 	}
 }
 
+.styleguide-module__title--light {
+	color: #bbb;
+	text-transform: none;
+	font-size: 12px;
+	line-height: 12px;
+	font-weight: normal;
+	margin: 0;
+	display: block;
+}
+
+.styleguide-module__title--small {
+	font-size: 20px;
+	line-height: 20px;
+	margin-bottom: 25px;
+}
+
+.styleguide-module__toggle-code {
+	display: block;
+	text-indent: -9999999px;
+	background: url('../images/icon_code.svg') right center no-repeat;
+	height: 1.5em;
+	opacity: .5;
+	margin: 15px 0;
+	position: relative;
+}
 
 .styleguide-list--buttons {
 	li {
@@ -249,34 +311,18 @@ header {
 	}
 }
 
-.titles {
-	h1, h2, h3, h4, h5, h6 {
-		margin: 1rem 0 2.5rem 0;
+.pull-left {
+	float: left;
+}
+
+.pull-right {
+	float: right;
+}
+
+@mixin clearfix {
+	&::after {
+		clear: both;
+		content: "";
+		display: table;
 	}
-}
-
-.styleguide-module__title--light {
-    color: #bbb;
-    text-transform: none;
-    font-size: 12px;
-    line-height: 12px;
-    font-weight: normal;
-    margin: 0;
-    display: block;
-}
-.styleguide-module__title--small {
-	font-size: 20px;
-	line-height: 20px;
-	margin-bottom: 25px;
-}
-
-
-.styleguide-module__toggle-code {
-    display: block;
-    text-indent: -9999999px;
-    background: url('../images/icon_code.svg') right center no-repeat;
-    height: 1.5em;
-    opacity: .5;
-    margin-bottom: 15px;
-    position: relative;
 }

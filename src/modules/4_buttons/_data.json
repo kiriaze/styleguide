@@ -1,7 +1,6 @@
 {
 	"id": "buttons",
 	"name": "Buttons",
-	"hasScript": "yes",
 	"items": [
 	    {
 	        "buttonName" : "Basic Button",

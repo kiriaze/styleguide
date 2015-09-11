@@ -15,7 +15,6 @@
 
 	<!--[if lt IE 9]><div class="upgrade"><strong><a href="http://whatbrowser.org/">Your browser is quite old!</strong> Why not upgrade to a different browser to better enjoy this site?</a></div><![endif]-->
 
-	<!-- CSS - comment out when production build is ran -->
 	<link rel="stylesheet" href="./assets/css/main.css">
 
 </head>
@@ -32,16 +31,11 @@
 				</ul>
 			</nav>
 		</header>
-		<main id="main">
-			<div class="primary">
-				<!-- include styleguide here -->
-				@@include('modules.html')
-			</div>
-		</main>
-		<aside class="sidebar">
-			<img src="./assets/images/logo_placeholder.png" alt="" class="logo">
-			<nav id="nav"></nav>
-		</aside>
+
+		<div class="styleguide-iframe-wrapper">
+			<iframe src="./styleguide.html" width="100%" height="100%" frameborder="0"></iframe>
+		</div>
+
 		<script src="./assets/js/app.js"></script>
 	</body>
 </html>

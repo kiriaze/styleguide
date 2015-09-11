@@ -1,7 +1,7 @@
+var $ = require('../vendor/jquery/dist/jquery.js');
 
-var introduction = require('../../modules/1_introduction/introduction.js');
-
-(function($){
+// (function($){
+$(function() {
 
 	/* jshint devel:true */
 	'use strict';
@@ -20,7 +20,6 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 		SHORTNAME.colors();
 		SHORTNAME.basics();
 		SHORTNAME.breakpointToggle();
-		SHORTNAME.codeSnippets();
 
 	};
 
@@ -63,17 +62,6 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 
 	SHORTNAME.basics = function() {
 
-		// SimpleAnchors
-		$.simpleAnchors({
-			offset: 75-1, // 80-1, header height on scroll
-			easing: 'easeInOutCubic',
-			autoBuild: true,
-			sections: '.styleguide-module__title',	// the elements auto build targets to generate links from
-            sectionEl: 'section class="module"',             // the elements auto build searchs for the section arg
-            wrapper: '.primary',              // wrapper of all the auto build sections
-            navEl: '#nav'
-		});
-
 		// simpleforms - styles/effects for forms, checkboxes, radio's
 		// $('body').simpleforms();
 
@@ -111,59 +99,19 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 			var size = $(this).data('breakpoint-size');
 			SHORTNAME.elems.headerBreakpoints.find('a').removeClass('active');
 			$(this).addClass('active');
-			$('.primary').attr('data-breakpoint-size', size);
+			// $('.primary').attr('data-breakpoint-size', size);
+			$('iframe').attr('data-breakpoint-size', size);
 		});
-	};
-
-	SHORTNAME.codeSnippets = function(){
-		var codeToCreateSnippetClass = '.snippet',
-			codeSnippetsClass        = '.styleguide-module__toggle-code';
-
-		/**
-		* Setup markup code snippet.
-		* It gets the HTML of the element and creates the code area
-		*/
-
-		var options = {
-			"indent":"auto",
-			"indent-spaces":2,
-			"wrap":80,
-			"markup":true,
-			"output-xml":false,
-			"numeric-entities":true,
-			"quote-marks":true,
-			"quote-nbsp":false,
-			"show-body-only":true,
-			"quote-ampersand":false,
-			"break-before-br":true,
-			"uppercase-tags":false,
-			"uppercase-attributes":false,
-			"drop-font-tags":true,
-			"tidy-mark":false,
-			"quiet":"yes",
-			"show-warnings":"no"
-		};
-
-		$.each($(codeToCreateSnippetClass), function(index, val) {
-			// console.log($(val), val);
-			var snippetClassName = codeToCreateSnippetClass.substr(1);
-			var snippet = $(val)[0].outerHTML;
-			$(val).before('<a href="javascript:;" class="' + codeSnippetsClass.replace('.', '') + '"></a>');
-			$(val).after('<pre class="language-markup"><code>' + $('<p/>').text(snippet).html() + '</code></pre>').next().hide();
-		});
-
-		$(codeSnippetsClass).click(function(e) {
-			e.preventDefault();
-			var $code = $(this).next().next();
-			// console.log($code);
-			$code.toggle();
-		});
-
-		Prism.highlightAll();
 	};
 
 	$window.load(function() {
 		SHORTNAME.elems.body.addClass('loaded');
+	});
+
+	$('iframe').load(function() {
+		frames[0].$('body').addClass('loaded');
+		// hack
+		$('.styleguide-header').after(frames[0].$('.sidebar'));
 	});
 
 	$window.resize(function(event) {
@@ -171,9 +119,8 @@ var introduction = require('../../modules/1_introduction/introduction.js');
 	});
 
 	$(document).ready(function(){
-
 		SHORTNAME.init();
-
 	});
 
-})(window.jQuery);
+// })(window.jQuery);
+});
