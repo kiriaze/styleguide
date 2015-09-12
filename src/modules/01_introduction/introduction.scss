@@ -1,5 +1,11 @@
 .module[data-scroll-target='introduction'] {
 	background-color: $primary-color;
-	// background: $seafoam;
 	color: white;
+	@include breakpoint($small) {
+		text-align: center;
+		p {
+			margin: 0 auto 1rem;
+			max-width: 80%;
+		}
+	}
 }

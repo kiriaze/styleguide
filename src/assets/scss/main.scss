@@ -139,12 +139,11 @@ header {
 				color: $dark-grey;
 				&:before {
 					content: '';
-					opacity: 0.5;
+					opacity: 0.2;
 					display: inline-block;
 					vertical-align: top;
 					height: $header-height;
 					background: center no-repeat;
-					// margin-right: 10px;
 				}
 				&:hover:before,
 				&.active:before {

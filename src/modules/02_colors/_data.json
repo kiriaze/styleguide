@@ -5,13 +5,22 @@
         "intro": ["Brands has these colors below."],
         "colors": [
             {
-                "className": "bg-blue"
+              "name": "Blue",
+              "className": "bg-blue",
+              "rgb": "rgb(52,152,219)",
+              "hex": "#3498db"
             },
             {
-                "className": "bg-red"
+              "name": "Red",
+              "className": "bg-red",
+              "rgb": "rgb(255,65,54)",
+              "hex": "#FF4136"
             },
             {
-                "className": "bg-black"
+              "name": "Black",
+              "className": "bg-black",
+              "rgb": "rgb(0,0,0)",
+              "hex": "#000000"
             }
         ]
     }
