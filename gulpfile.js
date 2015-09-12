@@ -233,7 +233,7 @@ gulp.task('fileinclude', function() {
 
 // html - have fileinclude run before html so nothing breaks
 gulp.task('html', ['fileinclude'], function() {
-	gulp.src([config.src.root + '/index.html', config.src.root + '/styleguide.html'])
+	gulp.src([config.src.root + '/**/*.html', '!' + config.src.root + '/assets/**/*.html'])
 		.pipe(gulp.dest(config.dist.root));
 });
 
@@ -245,7 +245,7 @@ gulp.task('watch', function() {
 
 	bs.watch(config.src.root + '/**/*.html', function (event, file) {
 		if ( event === 'change' ) {
-			runSequence('html', bs.reload)
+			runSequence('fileinclude', 'html', bs.reload)
 		}
 	});
 
