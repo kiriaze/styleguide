@@ -1,4 +1,4 @@
-var introduction = require('../../modules/1_introduction/introduction.js');
+var introduction = require('../../modules/01_introduction/introduction.js');
 require('./plugins/prism.js');
 
 (function($){

@@ -32,6 +32,7 @@ $(function() {
 		SHORTNAME.elems.scrollToTop       =	$('a[data-scroll-to="top"]');
 
 		SHORTNAME.elems.toggleSidebar     = $('.toggle-sidebar');
+		SHORTNAME.elems.header            = $('.styleguide-header');
 		SHORTNAME.elems.headerBreakpoints = $('.styleguide-header-breakpoints');
 
 	};
@@ -99,7 +100,6 @@ $(function() {
 			var size = $(this).data('breakpoint-size');
 			SHORTNAME.elems.headerBreakpoints.find('a').removeClass('active');
 			$(this).addClass('active');
-			// $('.primary').attr('data-breakpoint-size', size);
 			$('iframe').attr('data-breakpoint-size', size);
 		});
 	};
@@ -111,7 +111,7 @@ $(function() {
 	$('iframe').load(function() {
 		frames[0].$('body').addClass('loaded');
 		// hack
-		$('.styleguide-header').after(frames[0].$('.sidebar'));
+		SHORTNAME.elems.header.after(frames[0].$('.sidebar'));
 	});
 
 	$window.resize(function(event) {

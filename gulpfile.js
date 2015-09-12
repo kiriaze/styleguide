@@ -211,7 +211,7 @@ gulp.task('styleguide', function() {
 	return gulp.src(config.src.root + '/modules/**/*.jade')
 		.pipe(plugins.data(function(file) {
 			// console.log(file);
-			return JSON.parse(fs.readFileSync(path.dirname(file.path) + '/_data.json')); // running watch and because require calls are cached, changes to json don't show up unless you restart the task
+			return JSON.parse(fs.readFileSync(path.dirname(file.path) + '/_data.json'));
 		}))
 		.pipe(plugins.jade({pretty: true})
 			.on('error', function(err) {
