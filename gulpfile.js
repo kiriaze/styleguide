@@ -220,20 +220,18 @@ gulp.task('styleguide', function() {
 		)
 		.pipe(plugins.concat('modules.html'))
 		.pipe(gulp.dest(config.src.root))
-		.pipe(bs.reload({stream:true}))
 });
 
 // fileinclude partials. e.g. modules.html into styleguide.html
 gulp.task('fileinclude', function() {
-	gulp.src([config.src.root + '/**/*.html', '!' + config.src.root + '/assets/**/*.html'])
+	gulp.src([config.src.root + '/*.html'])
 		.pipe(plugins.fileInclude())
 		.pipe(gulp.dest(config.dist.root))
-		.pipe(bs.reload({stream:true}))
 });
 
 // html - have fileinclude run before html so nothing breaks
-gulp.task('html', ['fileinclude'], function() {
-	gulp.src([config.src.root + '/**/*.html', '!' + config.src.root + '/assets/**/*.html'])
+gulp.task('html', function() {
+	gulp.src([config.src.root + '/index.html', config.src.root + '/styleguide.html'])
 		.pipe(gulp.dest(config.dist.root));
 });
 
@@ -269,7 +267,7 @@ gulp.task('watch', function() {
 	], function(event, file){
 		if ( event === 'change' ) {
 			// required to run sequentially
-			runSequence('styleguide', 'fileinclude', bs.reload)
+			runSequence('styleguide')
 		}
 	});
 
@@ -284,8 +282,8 @@ gulp.task('default', function(callback) {
 		'bower',
 		'mbf',
 		'styleguide',
-		'fileinclude',
 		'html',
+		'fileinclude',
 		'sass',
 		'browserify',
 		'js',
