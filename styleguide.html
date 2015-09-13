@@ -1,20 +1,23 @@
-<!doctype html>
-<html class="no-js" lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Styleguide</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="./assets/images/favicon.png">
-	<link rel="stylesheet" href="./assets/css/main.css">
-</head>
-	<body>
-		<aside class="sidebar">
-			<nav id="nav"></nav>
-			<img src="./assets/images/logo_placeholder.png" alt="" class="logo">
-		</aside>
-
-		<main id="main">
-			
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Project Name Styleguide</title>
+    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./assets/css/main.css" rel="stylesheet">
+  </head>
+  <body><!--[if lt IE 8]>
+    <p class="chromeframe">
+      <You>are using an <strong>outdated</strong> browser.</You>
+      <Please><a href="http://browsehappy.com/">upgrade your browser</a></Please>
+      <to>improve your experience.</to>
+    </p><![endif]-->
+    <aside class="sidebar">
+      <nav id="nav"></nav><img src="./assets/images/logo_placeholder.png" class="logo">
+    </aside>
+    <main id="main">
 <h2 class="styleguide-module__title">Introduction</h2>
 <div class="feedback">
   <p class="styleguide-module__paragraph">Hello! Welcome to Styleguide - a gulp flavored living styleguide tool inspired by Huge's styleguide - utilizing jade & json on top of an easily extendable. Includes Browserify, sourcemaps, sass minification/concatenation, auto bower setup and concatenation of files, browser-sync, gh-pages and more.</p>
@@ -44,6 +47,16 @@
 <h5 class="styleguide-module__title--small">Paragraphs</h5><span class="styleguide-module__title--light">Open Sans - 16px</span>
 <p contenteditable="true">SEO is a marketing tactic that costs five percent of overall budget but brings in more than 20 percent of revenue for many Fortune 500 companies, and yet very few of them prioritize it. Instead, while slowly changing, too many CMOS still favor paid search, which costs 20 percent and brings in… 20 percent. In search, businesses need to shift priorities. Now.</p><span class="styleguide-module__title--light">Open Sans - 16px</span>
 <p contenteditable="true" class="p3 small-3">Brand to be recognized at the 2014 “Made in NY” Awards for the company’s contribution to New York’s creative economy.</p>
+
+<h2 class="styleguide-module__title">Buttons</h2>
+<ul class="styleguide-list--buttons snippet">
+  <li><a href="javascript:;" class="btn btn-black">Basic Button</a></li>
+  <li><a href="javascript:;" class="btn btn-light">Light Button</a></li>
+  <li><a href="javascript:;" class="btn btn-primary">Primary Button</a></li>
+  <li><a href="javascript:;" class="btn btn-invert">Inverted Button</a></li>
+  <li><a href="javascript:;" class="btn btn-ghost">Ghost Button</a></li>
+  <li><a href="javascript:;" class="btn btn-invert btn-ghost">Inverted Ghost</a></li>
+</ul>
 
 <h2 class="styleguide-module__title">Tables</h2>
 <table class="snippet">
@@ -89,15 +102,19 @@
   </tfooter>
 </table>
 
-<h2 class="styleguide-module__title">Buttons</h2>
-<ul class="styleguide-list--buttons snippet">
-  <li><a href="javascript:;" class="btn btn-black">Basic Button</a></li>
-  <li><a href="javascript:;" class="btn btn-light">Light Button</a></li>
-  <li><a href="javascript:;" class="btn btn-primary">Primary Button</a></li>
-  <li><a href="javascript:;" class="btn btn-invert">Inverted Button</a></li>
-  <li><a href="javascript:;" class="btn btn-ghost">Ghost Button</a></li>
-  <li><a href="javascript:;" class="btn btn-invert btn-ghost">Inverted Ghost</a></li>
+<h2 class="styleguide-module__title">Lists</h2>
+<h5 class="styleguide-module__title--small">Unordered</h5>
+<ul class="snippet list_huge">
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
 </ul>
+<h5 class="styleguide-module__title--small">Ordered</h5>
+<ol class="snippet list_huge">
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ol>
 
 <h2 class="styleguide-module__title">Forms</h2>
 <div id="forms">
@@ -165,24 +182,11 @@
     </fieldset>
   </form>
 </div>
-
-<h2 class="styleguide-module__title">Lists</h2>
-<h5 class="styleguide-module__title--small">Unordered</h5>
-<ul class="snippet list_huge">
-  <li>Item 1</li>
-  <li>Item 2</li>
-  <li>Item 3</li>
-</ul>
-<h5 class="styleguide-module__title--small">Ordered</h5>
-<ol class="snippet list_huge">
-  <li>Item 1</li>
-  <li>Item 2</li>
-  <li>Item 3</li>
-</ol>
-		</main>
-
-		<script src="./assets/js/vendor.js"></script>
-		<script src="./assets/js/modules.js"></script>
-
-	</body>
+    </main>
+    <div class="styleguide-footer"><a href="javascript:;" target="_blank" class="h"></a>
+      <p>Lorem Getsum.<sup>TM</sup></p>
+    </div>
+    <script src="./assets/js/vendor.js"></script>
+    <script src="./assets/js/modules.js"></script>
+  </body>
 </html>
