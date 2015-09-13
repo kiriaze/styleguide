@@ -18,7 +18,6 @@
     "gulp-cache": "^0.2.10",
     "gulp-concat": "^2.4.3",
     "gulp-data": "^1.2.0",
-    "gulp-file-include": "^0.13.7",
     "gulp-filter": "^3.0.1",
     "gulp-gh-pages": "0.5.2",
     "gulp-imagemin": "^2.3.0",

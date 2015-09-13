@@ -1,0 +1,28 @@
+{
+  "clientName": "Project Name",
+  "version": "1",
+  "logoImage": "./assets/images/logo_placeholder.png",
+  "breakpoints": [
+    {
+      "id": "tiny",
+      "name": "Tiny",
+      "size": "420px"
+    },
+    {
+      "id": "small",
+      "name": "Small",
+      "size": "480px"
+    },
+    {
+      "id": "medium",
+      "name": "Medium",
+      "size": "768px"
+    },
+    {
+      "id": "large",
+      "name": "Large",
+      "size": "1280"
+    }
+  ],
+  "date": "2015/8/9"
+}

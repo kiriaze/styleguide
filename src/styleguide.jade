@@ -1,0 +1,14 @@
+extends templates/_layout
+block styles
+  link(href='./assets/css/main.css', rel='stylesheet')
+block meta
+  meta(name='description', content='')
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+block content
+  include templates/_sidebar.jade
+  main#main
+    include modules.html
+  include templates/_footer.jade
+block scripts
+  script(src="./assets/js/vendor.js")
+  script(src="./assets/js/modules.js")

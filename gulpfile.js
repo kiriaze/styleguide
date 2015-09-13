@@ -205,15 +205,35 @@ gulp.task('clean', function(callback) {
 	return plugins.cache.clearAll(callback);
 });
 
+
+// json/jade root
+gulp.task('jade', function() {
+
+	var data = JSON.parse(fs.readFileSync('_data.json'));
+
+	return gulp.src(config.src.root + '/*.jade')
+		.pipe(plugins.jade({
+			pretty: true,
+			locals: data
+		})
+			.on('error', function(err) {
+				console.log(err)
+			})
+		)
+		.pipe(gulp.dest(config.dist.root))
+});
+
+
 // json/jade styleguide
 gulp.task('styleguide', function() {
-
 	return gulp.src(config.src.root + '/modules/**/*.jade')
 		.pipe(plugins.data(function(file) {
-			// console.log(file);
+			// console.log(file.path);
 			return JSON.parse(fs.readFileSync(path.dirname(file.path) + '/_data.json'));
 		}))
-		.pipe(plugins.jade({pretty: true})
+		.pipe(plugins.jade({
+			pretty: true
+		})
 			.on('error', function(err) {
 				console.log(err)
 			})
@@ -222,30 +242,10 @@ gulp.task('styleguide', function() {
 		.pipe(gulp.dest(config.src.root))
 });
 
-// fileinclude partials. e.g. modules.html into styleguide.html
-gulp.task('fileinclude', function() {
-	gulp.src([config.src.root + '/*.html'])
-		.pipe(plugins.fileInclude())
-		.pipe(gulp.dest(config.dist.root))
-});
-
-// html - have fileinclude run before html so nothing breaks
-gulp.task('html', function() {
-	gulp.src([config.src.root + '/index.html', config.src.root + '/styleguide.html'])
-		.pipe(gulp.dest(config.dist.root));
-});
-
-
 // Watchers
 gulp.task('watch', function() {
 
 	// utilizing browsersync.watch - much faster than gulp.watch
-
-	bs.watch(config.src.root + '/**/*.html', function (event, file) {
-		if ( event === 'change' ) {
-			runSequence('fileinclude', 'html', bs.reload)
-		}
-	});
 
 	bs.watch(config.src.root + '/**/*.scss', function (event, file) {
 		if ( event === 'change' ) {
@@ -261,13 +261,25 @@ gulp.task('watch', function() {
 		}
 	});
 
+	// only modules
 	bs.watch([
 		config.src.root + '/modules/**/*.jade',
 		config.src.root + '/modules/**/*.json'
 	], function(event, file){
 		if ( event === 'change' ) {
-			// required to run sequentially
-			runSequence('styleguide')
+			// required to run jade after for update of modules.html
+			runSequence('styleguide', 'jade', bs.reload)
+		}
+	});
+
+	// styleguide structure
+	bs.watch([
+		config.src.root + '/*.jade',
+		config.src.root + '/templates/*.jade',
+		'_data.json'
+	], function(event, file){
+		if ( event === 'change' ) {
+			runSequence('jade', bs.reload)
 		}
 	});
 
@@ -282,8 +294,7 @@ gulp.task('default', function(callback) {
 		'bower',
 		'mbf',
 		'styleguide',
-		'html',
-		'fileinclude',
+		'jade',
 		'sass',
 		'browserify',
 		'js',

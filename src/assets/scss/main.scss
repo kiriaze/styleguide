@@ -79,8 +79,7 @@ a {
 }
 
 #main {
-	width: 100%;
-	height: 100%;
+
 }
 
 .module {
@@ -139,11 +138,12 @@ header {
 				color: $dark-grey;
 				&:before {
 					content: '';
-					opacity: 0.2;
+					opacity: 0.5;
 					display: inline-block;
 					vertical-align: top;
 					height: $header-height;
 					background: center no-repeat;
+					// margin-right: 10px;
 				}
 				&:hover:before,
 				&.active:before {
@@ -308,6 +308,13 @@ header {
 	li {
 		margin-bottom: 1rem;
 	}
+}
+
+.styleguide-footer {
+	clear: both;
+	background: $primary-color;
+	overflow: hidden;
+	text-align: center;
 }
 
 .pull-left {
