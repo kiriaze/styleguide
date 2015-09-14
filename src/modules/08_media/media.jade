@@ -6,7 +6,10 @@ div(id=id)
         - var count = row.videos.length
         each video in row.videos
           div(class="columns-#{count}")
-            figure.aspect #!{video.embed}
+            figure.aspect.video
+              a(href="#{video.url}", class="video-player")
+              img(src="", class="video-thumb")
+              .play-button
       if row.images
         - var count = row.images.length
         each image in row.images

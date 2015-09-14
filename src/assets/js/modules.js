@@ -4,6 +4,7 @@ var prism        = require('./plugins/prism.js');
 
 var introduction = require('../../modules/01_introduction/introduction.js');
 var simpleForms  = require('../../modules/07_forms/simpleforms.min.js');
+var media        = require('../../modules/08_media/media.js');
 
 (function($){
 
