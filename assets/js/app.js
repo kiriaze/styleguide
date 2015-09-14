@@ -1,7 +1,10 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var $ = require('../vendor/jquery/dist/jquery.js');
+(function (global){
+// Outer iframe wrapper scripts
 
-// (function($){
+var $ = require('../vendor/jquery/dist/jquery.js');
+global.jQuery = require('../vendor/jquery/dist/jquery.js'); // for jquery plugins to work instead of using browserify-shim
+
 $(function() {
 
 	/* jshint devel:true */
@@ -64,12 +67,6 @@ $(function() {
 
 	SHORTNAME.basics = function() {
 
-		// simpleforms - styles/effects for forms, checkboxes, radio's
-		// $('body').simpleforms();
-
-		// Target your .container, .wrapper, .post, etc.
-		// SHORTNAME.elems.body.fitVids();
-
 		SHORTNAME.elems.toggleSidebar.on('click',function(){
 			SHORTNAME.elems.body.add(SHORTNAME.elems.html).toggleClass('sidebar-open');
 		});
@@ -123,9 +120,9 @@ $(function() {
 		SHORTNAME.init();
 	});
 
-// })(window.jQuery);
 });
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../vendor/jquery/dist/jquery.js":2}],2:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
