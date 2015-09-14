@@ -1,9 +1,16 @@
+// Iframe scripts
+
+var prism        = require('./plugins/prism.js');
+
 var introduction = require('../../modules/01_introduction/introduction.js');
-require('./plugins/prism.js');
+var simpleForms  = require('../../modules/07_forms/simpleforms.min.js');
 
 (function($){
 
 	// console.log('modules loaded');
+
+	// simpleforms - styles/effects for forms, checkboxes, radio's
+	$('body').simpleforms();
 
 	// SimpleAnchors
 	$.simpleAnchors({

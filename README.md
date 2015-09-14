@@ -4,6 +4,8 @@
 A gulp flavored styleguide inspired by Huge's styleguide, utilizing jade & json on top of an easily extendable format.
 It comes preconfigured with Browserify, sourcemaps, libsass, optimization, bower, browser-sync, gh-pages and more.
 
+Check the live example out at [https://kiriaze.github.io/styleguide](https://kiriaze.github.io/styleguide)!
+
 ### Get started
 It's easy to get started. Just follow the steps below.
 
@@ -48,11 +50,12 @@ Want to push it to github pages?
 **Boom goes the dynamite.**
 
 ### ToDo's
-Consider https://github.com/assemble/assemble or replacing jade with handlebars, swig or something similar.
-
-This styleguide works as a standalone but can possibly be included within your project and separated by example below.
-
-gulpfile.js in your main project:
-
+- Rather than manually including/requiring js/scss within ./src/assets, have them auto compile/concat from within their respective modules directories and injected into ./dist, either into 1 file or separate files?
+- Consider https://github.com/assemble/assemble or replacing jade with handlebars, swig or something similar.
+- Possibility to save to json from front end on contenteditable elements - if logged in?, e.g. the Typography section.
+- Subsections - utilizing simpleAnchors.js
+- Different stylguide themes/layouts
+- Ability for modules to be used as pages
+- Still working on having the ablitity to be included within your project and separated with the gulpfile.js in your main project:
 	require('./gulp');
 	require('./styleguide/gulp');

@@ -5,42 +5,42 @@
         "fonts": [
             {
                 "heading": "1",
-                "fontName" : "Open Sans",
+                "fontName" : "Libre Baskerville",
                 "fontSize": "40px",
                 "className": "font-libre-baskerville uppercase",
                 "title": "The quick corrupt politician jumps over the lazy society."
             },
             {
                 "heading": "2",
-                "fontName" : "Open Sans",
+                "fontName" : "Libre Baskerville",
                 "fontSize": "34px",
                 "className": "font-libre-baskerville",
                 "title": "The quick corrupt politician jumps over the lazy society."
             },
             {
                 "heading": "3",
-                "fontName" : "Open Sans",
+                "fontName" : "Libre Baskerville",
                 "fontSize": "30px",
                 "className": "font-libre-baskerville",
                 "title": "The quick corrupt politician jumps over the lazy society."
             },
             {
                 "heading": "4",
-                "fontName" : "Open Sans",
+                "fontName" : "Libre Baskerville",
                 "fontSize": "26px",
                 "className": "font-libre-baskerville",
                 "title": "The quick corrupt politician jumps over the lazy society."
             },
             {
                 "heading": "5",
-                "fontName" : "Open Sans",
+                "fontName" : "Libre Baskerville",
                 "fontSize": "22px",
                 "className": "font-libre-baskerville",
                 "title": "The quick corrupt politician jumps over the lazy society."
             },
             {
                 "heading": "6",
-                "fontName" : "Open Sans",
+                "fontName" : "Libre Baskerville",
                 "fontSize": "18px",
                 "className": "font-libre-baskerville",
                 "title": "The quick corrupt politician jumps over the lazy society."

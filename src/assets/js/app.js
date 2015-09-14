@@ -1,6 +1,8 @@
-var $ = require('../vendor/jquery/dist/jquery.js');
+// Outer iframe wrapper scripts
 
-// (function($){
+var $ = require('../vendor/jquery/dist/jquery.js');
+global.jQuery = require('../vendor/jquery/dist/jquery.js'); // for jquery plugins to work instead of using browserify-shim
+
 $(function() {
 
 	/* jshint devel:true */
@@ -63,12 +65,6 @@ $(function() {
 
 	SHORTNAME.basics = function() {
 
-		// simpleforms - styles/effects for forms, checkboxes, radio's
-		// $('body').simpleforms();
-
-		// Target your .container, .wrapper, .post, etc.
-		// SHORTNAME.elems.body.fitVids();
-
 		SHORTNAME.elems.toggleSidebar.on('click',function(){
 			SHORTNAME.elems.body.add(SHORTNAME.elems.html).toggleClass('sidebar-open');
 		});
@@ -122,5 +118,4 @@ $(function() {
 		SHORTNAME.init();
 	});
 
-// })(window.jQuery);
 });

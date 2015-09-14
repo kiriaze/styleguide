@@ -1,7 +1,6 @@
 {
 	"id": "introduction",
 	"name": "Introduction",
-	"scripts": ["introduction.js"],
 	"items" : [
         "Hello! Welcome to Styleguide - a gulp flavored living styleguide tool inspired by Huge's styleguide - utilizing jade & json on top of an easily extendable. Includes Browserify, sourcemaps, sass minification/concatenation, auto bower setup and concatenation of files, browser-sync, gh-pages and more.",
         "Please feel free to collaborate to the project on <a href='https://github.com/kiriaze/styleguide'>Github</a>. You can submit any issues <a href='https://github.com/kiriaze/styleguide/issues'>here</a>."

@@ -1,7 +1,9 @@
 {
-  "clientName": "Project Name",
+  "clientName": "Project",
   "version": "1",
   "logoImage": "./assets/images/logo_placeholder.png",
+  "theme": "default",
+  "forms": "green",
   "breakpoints": [
     {
       "id": "tiny",
@@ -24,5 +26,5 @@
       "size": "1280"
     }
   ],
-  "date": "2015/8/9"
+  "date": "09-14-2015"
 }

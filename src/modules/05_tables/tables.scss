@@ -1,48 +1,40 @@
 table {
+	width: 100%;
 	border-collapse: collapse;
 	border-spacing: 0;
-	empty-cells: show;
-	border: 1px solid #cbcbcb;
-}
-table caption {
-	color: #000;
-	font: italic 85%/1 arial,sans-serif;
-	padding: 1em 0;
-	text-align: center;
-}
-table td,
-table th {
-	border-left: 1px solid #cbcbcb;
-	border-width: 0 0 0 1px;
-	font-size: inherit;
-	margin: 0;
-	overflow: visible;
-	padding: .5em 1em;
-}
-table th {
-	font-family: 'HUGEAvantGardeBold', Helvetica, Arial, sans-serif;
-	font-weight: normal;
-	border-bottom: 1px solid #cbcbcb;
-}
-table td:first-child,
-table th:first-child {
-	border-left-width: 0;
-}
-table thead {
-	background: #e0e0e0;
-	color: #000;
-	text-align: left;
-	vertical-align: bottom;
-}
-table tr:nth-child(2n-1) td {
-	background-color: #f8f8f8;
-}
-table td {
-	border-bottom: 1px solid #cbcbcb
-}
-
-#tables {
-  table {
-    width: 90%;
-  }
+	th,
+	td {
+		display: block;
+		width: 100%;
+		font-size: 12px;
+		padding: 1rem 0;
+		&:first-child {
+			padding-bottom: 0;
+		}
+		@include breakpoint($small) {
+			padding: 1rem;
+			min-width: 175px;
+			width: auto;
+			text-align: left;
+			display: table-cell;
+			&:first-child {
+				padding-bottom: 1rem;
+			}
+		}
+	}
+	thead {
+		display: none;
+		@include breakpoint($small) {
+			display: table-header-group;
+		}
+	}
+	tbody {
+		tr {
+			border-top: 1px solid darken($light-grey,10);
+			background-color: $white;
+			td {
+				color: lighten($dark-grey, 15%);
+			}
+		}
+	}
 }

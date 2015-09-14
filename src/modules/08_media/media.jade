@@ -1,0 +1,14 @@
+h2.styleguide-module__title=name
+div(id=id)
+  each row in items.rows
+    .row
+      if row.videos
+        - var count = row.videos.length
+        each video in row.videos
+          div(class="columns-#{count}")
+            figure.aspect #!{video.embed}
+      if row.images
+        - var count = row.images.length
+        each image in row.images
+          div(class="columns-#{count}")
+            img(src="#{image.src}")

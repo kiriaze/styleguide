@@ -160,6 +160,9 @@ gulp.task('browserify', function() {
 			noParse: [config.bowerDir + '/jquery/dist/jquery.min.js']
 		})
             .bundle()
+			.on('error', plugins.notify.onError(function (error) {
+				return 'An error occurred while compiling js.\nLook in the console for details.\n' + error;
+			}))
 			.pipe(source(output))
 			// .pipe(buffer())
 			// .pipe(plugins.sourcemaps.init({loadMaps: true}))
@@ -200,9 +203,9 @@ gulp.task('cname',function(){
 });
 
 // Cleaning
-gulp.task('clean', function(callback) {
+gulp.task('clean', function() {
 	del(config.dist.root);
-	return plugins.cache.clearAll(callback);
+	return plugins.cache.clearAll();
 });
 
 
@@ -216,9 +219,9 @@ gulp.task('jade', function() {
 			pretty: true,
 			locals: data
 		})
-			.on('error', function(err) {
-				console.log(err)
-			})
+			.on('error', plugins.notify.onError(function (error) {
+				return 'An error occurred while compiling jade.\nLook in the console for details.\n' + error;
+			}))
 		)
 		.pipe(gulp.dest(config.dist.root))
 });
@@ -234,9 +237,9 @@ gulp.task('styleguide', function() {
 		.pipe(plugins.jade({
 			pretty: true
 		})
-			.on('error', function(err) {
-				console.log(err)
-			})
+			.on('error', plugins.notify.onError(function (error) {
+				return 'An error occurred while compiling jade.\nLook in the console for details.\n' + error;
+			}))
 		)
 		.pipe(plugins.concat('modules.html'))
 		.pipe(gulp.dest(config.src.root))
@@ -288,7 +291,24 @@ gulp.task('watch', function() {
 // Build Sequences
 // ---------------
 
-gulp.task('default', function(callback) {
+gulp.task('build-date', function(){
+
+	var d = new Date();
+	// format in MM/DD/YYYY
+	var datestring = '0' + (d.getMonth()+1) + "-" + d.getDate()  + "-" + d.getFullYear();
+	// console.log(datestring);
+
+	// write to json
+	var data = JSON.parse(fs.readFileSync('_data.json'));
+
+	if ( data && typeof data.clientName !== 'undefined' ) {
+		data.date = datestring;
+		fs.writeFileSync('_data.json', JSON.stringify(data, null, 2));
+	}
+
+});
+
+gulp.task('default', function() {
 	runSequence(
 		'clean',
 		'bower',
@@ -301,8 +321,8 @@ gulp.task('default', function(callback) {
 		'images',
 		'fonts',
 		'cname',
+		'build-date',
 		'browserSync',
-		'watch',
-		callback
+		'watch'
 	)
 });

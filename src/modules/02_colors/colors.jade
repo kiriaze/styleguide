@@ -6,8 +6,8 @@ ul(id=id)
   each color in items.colors
     li
       div(class="color #{color.className}")
-      //- p .#{color.className}
-      p
+      p.default .#{color.className}
+      p.designer
         strong #{color.name}
         br
         | #{color.rgb}
@@ -15,3 +15,5 @@ ul(id=id)
         | #{color.hex}
         br
         $#{color.className}
+      p.minimal
+        | #{color.hex}

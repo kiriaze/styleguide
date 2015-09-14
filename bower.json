@@ -15,7 +15,7 @@
     "styleguide"
   ],
   "license": "GPL",
-  "homepage": "https://github.com/kiriaze/juice",
+  "homepage": "https://github.com/kiriaze/styleguide",
   "ignore": [
     "**/.*",
     "node_modules",

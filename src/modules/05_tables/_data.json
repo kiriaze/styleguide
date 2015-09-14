@@ -5,28 +5,28 @@
       "tables": [
           {
             "tableClass": "",
-            "head" : ["Offices", "Job Openings in Technology"],
+            "head" : ["Heading", "Heading"],
             "body": [
                 {
-                    "td": ["Atlanta", "6"]
+                    "td": ["Table Cell", "Table Cell"]
                 },
                 {
-                    "td": ["Brooklyn", "12"]
+                    "td": ["Table Cell", "Table Cell"]
                 },
                 {
-                    "td": ["London", "1"]
+                    "td": ["Table Cell", "Table Cell"]
                 },
                 {
-                    "td": ["Rio de Janeiro", "3"]
+                    "td": ["Table Cell", "Table Cell"]
                 },
                 {
-                    "td": ["San Francisco", "3"]
+                    "td": ["Table Cell", "Table Cell"]
                 },
                 {
-                    "td": ["Singapore", "2"]
+                    "td": ["Table Cell", "Table Cell"]
                 },
                 {
-                    "td": ["Washington DC", "2"]
+                    "td": ["Table Cell", "Table Cell"]
                 }
             ],
             "footer": []

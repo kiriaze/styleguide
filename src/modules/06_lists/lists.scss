@@ -1,10 +1,18 @@
-ol, ul {
+ol,
+ul {
 	list-style: none;
-	margin: 0 0 2em 0;
+	margin: 0;
 	padding: 0;
 }
 
-ul.list_huge {
+.list_styleguide {
+	li {
+		line-height: 1.5rem;
+	}
+}
+
+ul.list_styleguide {
+	margin: 0 0 2rem 0;
 	li {
 		padding-left: 20px;
 		position: relative;
@@ -12,7 +20,8 @@ ul.list_huge {
 		&::before {
 			content: '▶';
 			font-size: 11px;
-			top: 4px;
+			top: 50%;
+			transform: translateY(-50%);
 			color: $primary-color;
 			position: absolute;
 			left: 0;
@@ -20,15 +29,14 @@ ul.list_huge {
 	}
 }
 
-ol.list_huge {
+ol.list_styleguide {
 	counter-reset: item;
-
 	li {
 		padding-left: 30px;
 		position: relative;
 
 		&::before {
-			content: counters(item,".") " ";
+			content: counters(item,".") ".";
 			counter-increment: item;
 			top: 0;
 			color: $primary-color;
