@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp           = require('gulp'),
 	browserSync    = require('browser-sync'),
 	bs             = browserSync.create(),
@@ -24,7 +26,10 @@ var gulp           = require('gulp'),
 	// require('./gulp');
 	// require('./styleguide/gulp');
 
+
+// -------------------------------------------------------------
 // Config
+// -------------------------------------------------------------
 config = {
 
 	'serverport': 3000,
@@ -47,7 +52,7 @@ config = {
 
 	// gh-pages default pushes to gh-pages branch.
 	// remoteUrl: '', By default gulp-gh-pages assumes the current working directory is a git repository and uses its remote url. If your gulpfile.js is not in a git repository, or if you want to push to a different remote url ( username.github.io ), you can specify it. Ensure you have write access to the repository.
-	// branch by default is gh-pages. set to master for username.github.io
+	// set branch to master for username.github.io
 	// set source to what dir you want to push to github
 	'githubPages': {
 		'remoteUrl'	: '',
@@ -250,6 +255,7 @@ gulp.task('watch', function() {
 
 	// utilizing browsersync.watch - much faster than gulp.watch
 
+	// scss
 	bs.watch(config.src.root + '/**/*.scss', function (event, file) {
 		if ( event === 'change' ) {
 			runSequence('sass')
@@ -257,10 +263,19 @@ gulp.task('watch', function() {
 		}
 	});
 
+	// js
 	bs.watch(config.src.root + '/**/*.js', function (event, file) {
 		if ( event === 'change' ) {
 			// required to run sequentially
 			runSequence('browserify', 'js', bs.reload)
+		}
+	});
+
+	// images
+	bs.watch(config.src.root + '/assets/images/**/*', function (event, file) {
+		if ( event === 'change' ) {
+			// required to run sequentially
+			runSequence('images', bs.reload)
 		}
 	});
 
@@ -288,9 +303,11 @@ gulp.task('watch', function() {
 
 });
 
+// ---------------
 // Build Sequences
 // ---------------
 
+// output last build date into styleguide
 gulp.task('build-date', function(){
 
 	var d = new Date();

@@ -5,13 +5,13 @@ ul {
 	padding: 0;
 }
 
-.list_styleguide {
+.list-styleguide {
 	li {
 		line-height: 1.5rem;
 	}
 }
 
-ul.list_styleguide {
+ul.list-styleguide {
 	margin: 0 0 2rem 0;
 	li {
 		padding-left: 20px;
@@ -29,7 +29,7 @@ ul.list_styleguide {
 	}
 }
 
-ol.list_styleguide {
+ol.list-styleguide {
 	counter-reset: item;
 	li {
 		padding-left: 30px;
