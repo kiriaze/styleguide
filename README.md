@@ -1,4 +1,4 @@
-### Styleguide
+# Styleguide
 > Includes [BrowserSync](https://github.com/shakyShane/browser-sync) for fast live reloading across devices on code changes. [Jade](http://jade-lang.com) templating, [Sass](http://sass-lang.com/) and a simple grid implementation with [S-Grid](https://github.com/kiriaze/s-grid).
 
 A gulp flavored styleguide inspired by Huge's styleguide, utilizing jade & json on top of an easily extendable format.
