@@ -102,3 +102,7 @@ $transition:					all $duration cubic-bezier(0.2, .4, .1, 1); // thumbnail animat
 
 // Styleguide Sidebar Width
 $sidebar-width:					240px;
+
+
+@import '../vendor/s-grid/breakpoints',
+		'../vendor/s-grid/grid';

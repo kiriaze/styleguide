@@ -50,6 +50,3 @@ $('.video').each(function() {
 	});
 
 });
-
-
-

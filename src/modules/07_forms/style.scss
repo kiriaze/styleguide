@@ -1,0 +1,97 @@
+@import "simple-forms";
+
+fieldset {
+	border: none;
+	label {
+		display: block;
+		padding: 0px;
+		margin: 0px;
+		margin-bottom: .5rem;
+		color: $dark-grey;
+		font-family: $body-font;
+		font-weight: 300;
+		font-size: 14px;
+		font-weight: normal;
+	}
+
+	input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+	textarea {
+		background-color: $light-grey;
+		padding: 10px;
+		height: 45px;
+		line-height: 45px;
+		border-radius: 0;
+		border: 1px solid darken($light-grey,10);
+		&::-webkit-input-placeholder,
+		:-moz-placeholder,
+		&::-moz-placeholder,
+		&:-ms-input-placeholder {
+			font-family: $body-font;
+			color: $dark-grey;
+		}
+	}
+
+	input:not([type="checkbox"]):not([type="radio"]):not([type="file"]) {
+		width: 100%;
+		background-clip: padding-box;
+		z-index: 1;
+		outline: none;
+		-webkit-appearance: none;
+		transition: $transition;
+		&[type="checkbox"],
+		&[type="radio"] {
+			box-sizing: border-box;
+			padding: 0;
+		}
+	}
+
+	textarea {
+		resize: vertical;
+		width: 100%;
+		min-height: 114px;
+		margin: 0px;
+		margin-bottom: 1.5rem;
+		line-height: 1;
+		outline: none;
+		-webkit-appearance: none;
+		background-clip: padding-box;
+	}
+
+	input,
+	select,
+	textarea {
+		margin-bottom: 1rem;
+		font-size: 13px;
+	}
+
+	input[type="radio"],
+	input[type="checkbox"] {
+		margin-right: 10px;
+	}
+
+	input[type="button"],
+	.btn {
+		border: none;
+	}
+
+	select {
+		height: 36px;
+		padding: 0 .5rem;
+		font-family: sans-serif;
+		letter-spacing: normal;
+		text-transform: none;
+		word-spacing: normal;
+		word-wrap: normal;
+		outline: none;
+		-webkit-user-select: text;
+		-webkit-font-smoothing: antialiased;
+		appearance: none;
+		z-index: 2;
+		position: relative;
+		border: 1px solid darken($light-grey, 30);
+		background-color: #fff;
+		border-radius: 0;
+		background-clip: padding-box;
+		overflow: hidden;
+	}
+}

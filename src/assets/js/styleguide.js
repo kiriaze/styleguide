@@ -8,38 +8,38 @@ $(function() {
 	/* jshint devel:true */
 	'use strict';
 
-	window.THEMENAME = {};
+	window.STYLEGUIDE = {};
 
-	var SHORTNAME = window.THEMENAME;
+	var SG = window.STYLEGUIDE;
 
 	var $window      = $(window),
 		$body        = $(document.body),
 		$html        = $(document.documentElement);
 
-	SHORTNAME.init = function(){
+	SG.init = function(){
 
-		SHORTNAME.setElements();
-		SHORTNAME.colors();
-		SHORTNAME.basics();
-		SHORTNAME.breakpointToggle();
+		SG.setElements();
+		SG.colors();
+		SG.basics();
+		SG.breakpointToggle();
 
 	};
 
-	SHORTNAME.setElements = function(){
-		SHORTNAME.elems                   = {};
+	SG.setElements = function(){
+		SG.elems                   = {};
 
 		// defaults
-		SHORTNAME.elems.html              =	$('html');
-		SHORTNAME.elems.body              =	$('body');
-		SHORTNAME.elems.scrollToTop       =	$('a[data-scroll-to="top"]');
+		SG.elems.html              = $('html');
+		SG.elems.body              = $('body');
+		SG.elems.scrollToTop       = $('a[data-scroll-to="top"]');
 
-		SHORTNAME.elems.toggleSidebar     = $('.toggle-sidebar');
-		SHORTNAME.elems.header            = $('.styleguide-header');
-		SHORTNAME.elems.headerBreakpoints = $('.styleguide-header-breakpoints');
+		SG.elems.toggleSidebar     = $('.toggle-sidebar');
+		SG.elems.header            = $('.styleguide-header');
+		SG.elems.headerBreakpoints = $('.styleguide-header-breakpoints');
 
 	};
 
-	SHORTNAME.colors = function() {
+	SG.colors = function() {
 		var colors = {
 			aqua    : '#7FDBFF',
 			blue    : '#0074D9',
@@ -63,19 +63,19 @@ $(function() {
 		// console.log(colors.blue);
 	};
 
-	SHORTNAME.basics = function() {
+	SG.basics = function() {
 
-		SHORTNAME.elems.toggleSidebar.on('click',function(){
-			SHORTNAME.elems.body.add(SHORTNAME.elems.html).toggleClass('sidebar-open');
+		SG.elems.toggleSidebar.on('click',function(){
+			SG.elems.body.add(SG.elems.html).toggleClass('sidebar-open');
 		});
 
 		var width = $window.width();
 
 		var sidebarToggle = function() {
 			if ( width > 768 ) {
-				SHORTNAME.elems.body.add(SHORTNAME.elems.html).addClass('sidebar-open');
+				SG.elems.body.add(SG.elems.html).addClass('sidebar-open');
 			} else {
-				SHORTNAME.elems.body.add(SHORTNAME.elems.html).removeClass('sidebar-open');
+				SG.elems.body.add(SG.elems.html).removeClass('sidebar-open');
 			}
 		}
 
@@ -91,23 +91,24 @@ $(function() {
 
 	};
 
-	SHORTNAME.breakpointToggle = function(){
-		SHORTNAME.elems.headerBreakpoints.find('a').on('click', function(){
+	SG.breakpointToggle = function(){
+		SG.elems.headerBreakpoints.find('a').on('click', function(){
 			var size = $(this).data('breakpoint-size');
-			SHORTNAME.elems.headerBreakpoints.find('a').removeClass('active');
+			SG.elems.headerBreakpoints.find('a').removeClass('active');
 			$(this).addClass('active');
 			$('iframe').attr('data-breakpoint-size', size);
 		});
 	};
 
 	$window.load(function() {
-		SHORTNAME.elems.body.addClass('loaded');
+		SG.elems.body.addClass('loaded');
 	});
 
 	$('iframe').load(function() {
+		// fade em in
 		frames[0].$('body').addClass('loaded');
-		// hack
-		SHORTNAME.elems.header.after(frames[0].$('.sidebar'));
+		// hack, move the sidebar out of iframe
+		SG.elems.header.after(frames[0].$('.sidebar'));
 	});
 
 	$window.resize(function(event) {
@@ -115,7 +116,7 @@ $(function() {
 	});
 
 	$(document).ready(function(){
-		SHORTNAME.init();
+		SG.init();
 	});
 
 });

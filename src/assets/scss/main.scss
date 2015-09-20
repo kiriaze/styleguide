@@ -1,17 +1,6 @@
 @import
 	'prism',
-	'../../modules/00_settings/settings.scss',
-	'colors',
-	'../vendor/s-grid/breakpoints',
-	'../vendor/s-grid/grid',
-	'../../modules/01_introduction/introduction.scss',
-	'../../modules/02_colors/colors.scss',
-	'../../modules/03_typography/typography.scss',
-	'../../modules/04_buttons/buttons.scss',
-	'../../modules/05_tables/tables.scss',
-	'../../modules/06_lists/lists.scss',
-	'../../modules/07_forms/forms.scss',
-	'../../modules/08_media/media.scss';
+	'../../modules/00_settings/style';
 
 $header-height: 75px;
 
@@ -79,42 +68,6 @@ a {
 	}
 }
 
-img {
-	vertical-align: middle;
-	interpolation-mode: bicubic;
-}
-
-/*
-* Flexible Media
-*/
-img, video, canvas, object, embed  {
-	max-width: 100%;
-	height: auto;
-}
-
-/*
-* Flexible Video iFrame Embed
-* use like :
-<figure class="aspect">
-	<iframe src="https://www.youtube.com/embed/4Fqg43ozz7A"></iframe>
-</figure>
-*/
-figure.aspect {
-	height: 0;
-	padding-bottom: 56.25%; /* 16:9 */
-	position: relative;
-	overflow: hidden;
-	iframe,
-	video,
-	embed {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-	}
-}
-
 hr {
 	margin: 3rem 0;
 	border: none;
@@ -130,7 +83,7 @@ hr {
 .module {
 	border-bottom: 1px solid #ddd;
 	background-color: white;
-	padding: 2rem;
+	padding: 3rem 1rem;
 	@include breakpoint($small) {
 		padding: 5rem;
 	}
@@ -155,11 +108,14 @@ header {
 	font-size: 12px;
 	font-weight: 700;
 	position: fixed;
-	padding: 0 2rem;
+	padding: 0 1rem;
 	z-index: 1;
 	top: 0;
 	left: 0;
 	right: 0;
+	@include breakpoint($small) {
+		padding: 0 2rem;
+	}
 	.toggle-sidebar {
 		float: left;
 		cursor: pointer;
@@ -250,7 +206,10 @@ header {
 	#nav {
 		padding: 2rem 0;
 		a {
-			padding: 1rem 2rem;
+			padding: 1rem;
+			@include breakpoint($small) {
+				padding: 1rem 2rem;
+			}
 			display: block;
 			border-bottom: 2px solid transparent;
 			&.active {

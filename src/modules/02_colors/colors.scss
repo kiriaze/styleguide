@@ -1,61 +1,49 @@
-#colors {
-	@include grid();
-	li {
-		position: relative;
-		padding: 0;
-		margin: 0 0 1rem 0;
-		.minimal & {
-			position: relative;
-			padding: 0;
-			margin: 0 0 3rem 0;
-			text-align: center;
-		}
-		.designer & {
-			box-shadow: 0px 0px 3px darken($light-grey,10);
-		}
-		@include breakpoint($small) {
-			@include columns(3);
-		}
-		.color {
-			height: 120px;
-			.minimal & {
-				width: 120px;
-				height: 120px;
-				margin: 0 auto;
-				border-radius: 100%;
-			}
-		}
-		p {
-			display: none;
-			background-color: #fff;
-			font-size: 12px;
-			.default & {
-				&.default {
-					display: block;
-					position: absolute;
-					bottom: 0;
-					left: 1em;
-					padding: 3px 13px;
-				}
-			}
-			.minimal & {
-				&.minimal {
-					display: block;
-					padding: 0;
-					margin: 1rem 0 0;
-					text-transform: uppercase;
-					font-weight: 700;
-					letter-spacing: 1px;
-					color: darken($light-grey,30);
-				}
-			}
-			.designer & {
-				&.designer {
-					display: block;
-					padding: 1rem;
-					margin: 0;
-				}
-			}
-		}
+/*
+   Global Colors
+   - Backgrounds
+   - Colors
+   - Border colors
+   - SVG fills
+   - SVG Strokes
+
+*/
+
+// $vars set in _base.scss
+$colors: (
+	'aqua'			$aqua,
+	'blue'			$blue,
+	'navy'			$navy,
+	'teal'			$teal,
+	'green'			$green,
+	'seafoam'		$seafoam,
+	'olive'			$olive,
+	'lime'			$lime,
+	'yellow'		$yellow,
+	'orange'		$orange,
+	'red'			$red,
+	'fuchsia'		$fuchsia,
+	'purple'		$purple,
+	'maroon'		$maroon,
+	'white'			$white,
+	'light-grey'	$light-grey,
+	'dark-grey'		$dark-grey,
+	'black'			$black
+);
+
+@each $newColor, $color in $colors {
+	.bg-#{$newColor} {
+		background-color: $color;
+	}
+	.#{$newColor} {
+		color: $color;
+	}
+	.stroke-#{$newColor} {
+		stroke: $color;
+	}
+	.fill-#{$newColor} {
+		fill: $color;
+	}
+	.border--#{$newColor} {
+		border-color: $color;
 	}
 }
