@@ -25,7 +25,7 @@ function parseVideoURL(url) {
 
 $('.video').each(function() {
 
-	$this = $(this);
+	var $this     = $(this);
 
 	var videoSrc  = parseVideoURL( $(this).find('.video-player').attr('href') );
 	var id        = videoSrc.id;
@@ -33,17 +33,34 @@ $('.video').each(function() {
 	var src       = '';
 	var thumb_url = '';
 
-    if ( provider == 'youtube' ) {
-    	src = '//www.youtube.com/embed/'+ id +'?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&controls=0&showinfo=0';
-		thumb_url = '//i.ytimg.com/vi/' + id + '/hqdefault.jpg';
-		$this.find('.video-thumb').attr('src', thumb_url);
-    } else {
-    	src = '//player.vimeo.com/video/' + id + '?portrait=0&title=0&color=bf1f48&badge=0&byline=0&autoplay=1';
-		$.getJSON('http://www.vimeo.com/api/v2/video/' + id + '.json?callback=?', {format: "json"}, function(data) {
-			thumb_url = data[0].thumbnail_large;
-			$this.find('.video-thumb').attr('src', thumb_url);
-		});
-    }
+	switch(provider) {
+
+		case 'youtube':
+			// console.log('youtube');
+	    	src = '//www.youtube.com/embed/'+ id +'?autoplay=1&autohide=2&border=0&wmode=opaque&enablejsapi=1&controls=0&showinfo=0';
+			thumb_url = '//i.ytimg.com/vi/' + id + '/hqdefault.jpg';
+			$(this).find('.video-thumb').attr('src', thumb_url);
+			break;
+
+		case 'vimeo':
+			// console.log('vimeo');
+	    	src = '//player.vimeo.com/video/' + id + '?portrait=0&title=0&color=bf1f48&badge=0&byline=0&autoplay=1';
+
+			var url = 'http://www.vimeo.com/api/v2/video/' + id + '.json?callback=?';
+
+			var foo = $.getJSON( url, {
+				format: 'json'
+			})
+				.done(function( data ) {
+					thumb_url = data[0].thumbnail_large;
+					$this.find('.video-thumb').attr('src', thumb_url);
+					// console.log(thumb_url,console.log($this));
+				});
+			break;
+
+		default:
+			break;
+	}
 
 	$(this).on('click', function() {
 	    $(this).append('<iframe src="'+ src +'" frameborder="0" allowfullscreen></iframe>').css('background', 'none');

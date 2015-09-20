@@ -26,6 +26,50 @@ var prism        = require('./plugins/prism.js');
 		}, 800, 'easeInOutCubic');
 	});
 
+	// tooltips for icons and other elements
+	$('[data-tooltip]').hover(
+		function() {
+			var $this     = $(this),
+				title     = $this.data('tooltip'),
+				position  = $this.data('tooltip-position') ? $this.data('tooltip-position') : 'bottom',
+				tooltip   = $( '<div class="tooltip '+position+'"><div class="tooltip-arrow"></div><div class="tooltip-inner">'+title+'</div></div>' );
+
+			$this.append( $( tooltip ) );
+
+			if ( position === 'top' ) {
+				tooltip.css({
+					'top': - tooltip.height() - 10,
+					'margin-left': - tooltip.width()/2
+				});
+			}
+
+			if ( position === 'bottom' ) {
+				tooltip.css({
+					'margin-left': - tooltip.width()/2
+				});
+			}
+
+			if ( position === 'left' ) {
+				tooltip.css({
+					'top': - tooltip.height()/4,
+					'left': - tooltip.width() - 20
+				});
+			}
+
+			if ( position === 'right' ) {
+				tooltip.css({
+					'top': - tooltip.height()/4,
+					'right': - tooltip.width() - 20
+				});
+			}
+
+			tooltip.addClass('in');
+
+		}, function() {
+			$( this ).find( ".tooltip" ).removeClass('in').remove();
+		}
+	);
+
 	// overwrite scrollspy of simpleAnchors for iframe
 	$(window).scroll(function() {
 
