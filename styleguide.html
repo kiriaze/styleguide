@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./assets/css/main.css" rel="stylesheet">
+    <link href="./assets/css/modules.css" rel="stylesheet">
   </head>
   <body data-simpleforms-color="green" class="default"><!--[if lt IE 8]>
     <p class="chromeframe">
@@ -30,19 +31,19 @@
   <li>
     <div class="color bg-blue"></div>
     <p class="default">.bg-blue</p>
-    <p class="designer"><strong>Blue</strong><br/>rgb(52,152,219)<br/>#3498db<br/>$bg-blue</p>
+    <p class="designer"><strong>Blue</strong><br/>rgb(52,152,219)<br/>#3498db<br/>.bg-blue</p>
     <p class="minimal">#3498db</p>
   </li>
   <li>
     <div class="color bg-red"></div>
     <p class="default">.bg-red</p>
-    <p class="designer"><strong>Red</strong><br/>rgb(255,65,54)<br/>#FF4136<br/>$bg-red</p>
+    <p class="designer"><strong>Red</strong><br/>rgb(255,65,54)<br/>#FF4136<br/>.bg-red</p>
     <p class="minimal">#FF4136</p>
   </li>
   <li>
     <div class="color bg-black"></div>
     <p class="default">.bg-black</p>
-    <p class="designer"><strong>Black</strong><br/>rgb(0,0,0)<br/>#000000<br/>$bg-black</p>
+    <p class="designer"><strong>Black</strong><br/>rgb(0,0,0)<br/>#000000<br/>.bg-black</p>
     <p class="minimal">#000000</p>
   </li>
 </ul>
@@ -110,13 +111,13 @@
 
 <h2 class="styleguide-module__title">Lists</h2>
 <h5 class="styleguide-module__title--small">Unordered</h5>
-<ul class="snippet list_styleguide">
+<ul class="snippet list-styleguide">
   <li>Item 1</li>
   <li>Item 2</li>
   <li>Item 3</li>
 </ul>
 <h5 class="styleguide-module__title--small">Ordered</h5>
-<ol class="snippet list_styleguide">
+<ol class="snippet list-styleguide">
   <li>Item 1</li>
   <li>Item 2</li>
   <li>Item 3</li>
@@ -124,69 +125,55 @@
 
 <h2 class="styleguide-module__title">Forms</h2>
 <div id="forms">
-  <h5>Default Form ( Foundation )</h5>
+  <h5>Default Form</h5>
   <form class="snippet">
-    <div class="row">
-      <div class="columns-1">
-        <div class="simpleforms">
-          <input type="text" placeholder="Placeholder" class="g-wide--full"/>
+    <fieldset>
+      <div class="row">
+        <div class="columns-1">
+          <input type="text" placeholder="Placeholder"/>
+        </div>
+        <div class="columns-1">
+          <input type="text" value="Disabled" disabled=""/>
         </div>
       </div>
-      <div class="columns-1">
-        <input type="text" value="Disabled" disabled="" class="g-wide--full"/>
+      <div class="row">
+        <div class="columns-1">
+          <input type="email" placeholder="Enter email addresss" required="required"/>
+        </div>
+        <div class="columns-1">
+          <input type="password" value="password" placeholder="Enter password"/>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="columns-1">
-        <label>Email input</label>
-        <input type="email"/>
+      <div class="row">
+        <div class="columns-1">
+          <textarea cols="30" rows="5" placeholder="Textarea text"></textarea>
+        </div>
+        <div class="columns-1">
+          <label>Select field</label>
+          <select>
+            <option>Option 01</option>
+            <option>Option 02</option>
+          </select>
+        </div>
+        <div class="columns-1">
+          <label>File input</label>
+          <input type="file"/>
+        </div>
       </div>
-      <div class="columns-1">
-        <label>Password input</label>
-        <input type="password" value="password"/>
+      <div class="row">
+        <div class="columns-1">
+          <label>
+            <input type="radio" name="radio"/>Radio input
+          </label>
+          <label>
+            <input type="checkbox"/>Checkbox input
+          </label>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="columns-1">
-        <label>Textarea</label>
-        <textarea cols="30" rows="5">Textarea text</textarea>
+      <div class="row">
+        <button type="submit" class="btn btn-invert">Submit</button>
       </div>
-      <div class="columns-1">
-        <label>Select field</label>
-        <select>
-          <option>Option 01</option>
-          <option>Option 02</option>
-        </select>
-      </div>
-      <div class="columns-1">
-        <label>File input</label>
-        <input type="file"/>
-      </div>
-    </div>
-    <div class="row">
-      <div class="columns-1">
-        <label>
-          <input type="radio" name="rad"/>Radio input
-        </label>
-        <label>
-          <input type="checkbox"/>Checkbox input
-        </label>
-      </div>
-      <div class="columns-1">
-        <label>Number input</label>
-        <input type="number" value="5" min="0" max="10"/>
-      </div>
-    </div>
-    <div class="row">
-      <div class="columns-1">
-        <label>Date input</label>
-        <input type="date"/>
-      </div>
-      <div class="columns-1">
-        <label>Time input</label>
-        <input type="time"/>
-      </div>
-    </div>
+    </fieldset>
   </form>
 </div>
 <hr/>
@@ -194,103 +181,107 @@
   <h5>SimpleForms</h5>
   <form action="" class="snippet simple-form row">
   
-    <div class="columns-2">
+    <fieldset>
   
-      <div class="simpleforms">
-        <input type="text" placeholder="Text Input" name="text-input">
-      </div>
+      <div class="columns-2">
   
-      <div class="simpleforms">
-        <textarea placeholder="Textarea"></textarea>
-      </div>
-  
-      <div class="simpleforms">
-        <label for="password">Password:</label>
-        <input type="password" class="password" name="password" placeholder="Enter your password">
-      </div>
-  
-    </div>
-  
-    <div class="columns-2">
-  
-      <div class="row">
-  
-        <div class="columns-2">
-  
-          <div class="simpleforms">
-            <input type="checkbox" name="checkbox-1" value="checkbox-1" id="checkbox-1">
-            <label for="checkbox-1">Checkbox 1</label>
-          </div>
-  
-          <div class="simpleforms">
-            <input type="checkbox" name="checkbox-2" value="checkbox-2" id="checkbox-2">
-            <label for="checkbox-2">Checkbox 2</label>
-          </div>
-  
-          <div class="simpleforms">
-            <input type="checkbox" name="checkbox-3" value="checkbox-3" id="checkbox-3">
-            <label for="checkbox-3">Checkbox 3</label>
-          </div>
-  
-          <br>
-  
-          <div class="simpleforms">
-            <select>
-              <option value="1">Select Option 1</option>
-              <option value="2">Select Option 2</option>
-              <option value="3">Select Option 3</option>
-            </select>
-          </div>
-  
-          <br>
-  
-          <div class="simpleforms">
-            <label for="file" class="file-label">
-              <input type="file" class="file-input" name="file">
-              <a class="file-select btn btn-light" href="javascript:;"><i class="fa fa-upload"></i>Upload file</a>
-              <span class="file-name"></span>
-              <a href="javascript:;" class="remove-file">Remove File</a>
-              <img class="preview-file" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt="preview image" />
-            </label>
-          </div>
+        <div class="simpleforms">
+          <input type="text" placeholder="Text Input" name="text-input">
         </div>
   
-        <div class="columns-2">
-  
-          <div class="simpleforms">
-            <input type="radio" name="radio" value="radio-1" id="radio-1">
-            <label for="radio-1">Radio 1</label>
-          </div>
-  
-          <div class="simpleforms">
-            <input type="radio" name="radio" value="radio-2" id="radio-2">
-            <label for="radio-2">Radio 2</label>
-          </div>
-  
-          <div class="simpleforms">
-            <input type="radio" name="radio" value="radio-3" id="radio-3">
-            <label for="radio-3">Radio 3</label>
-          </div>
-  
-          <br>
-  
-          <div class="simpleforms">
-            <input type="checkbox" name="toggler" value="toggler" class="toggler">
-          </div>
-  
-          <br>
-  
-          <div class="simpleforms">
-            <label for="submit">
-              <a class="btn btn-primary" href="javascript:;">Submit</a>
-            </label>
-          </div>
-  
+        <div class="simpleforms">
+          <textarea placeholder="Textarea"></textarea>
         </div>
   
-      </div><!-- /row -->
+        <div class="simpleforms">
+          <label for="password">Password:</label>
+          <input type="password" class="password" name="password" placeholder="Enter your password">
+        </div>
   
-    </div><!-- /columns-2 -->
+      </div>
+  
+      <div class="columns-2">
+  
+        <div class="row">
+  
+          <div class="columns-2">
+  
+            <div class="simpleforms">
+              <input type="checkbox" name="checkbox-1" value="checkbox-1" id="checkbox-1">
+              <label for="checkbox-1">Checkbox 1</label>
+            </div>
+  
+            <div class="simpleforms">
+              <input type="checkbox" name="checkbox-2" value="checkbox-2" id="checkbox-2">
+              <label for="checkbox-2">Checkbox 2</label>
+            </div>
+  
+            <div class="simpleforms">
+              <input type="checkbox" name="checkbox-3" value="checkbox-3" id="checkbox-3">
+              <label for="checkbox-3">Checkbox 3</label>
+            </div>
+  
+            <br>
+  
+            <div class="simpleforms">
+              <select>
+                <option value="1">Select Option 1</option>
+                <option value="2">Select Option 2</option>
+                <option value="3">Select Option 3</option>
+              </select>
+            </div>
+  
+            <br>
+  
+            <div class="simpleforms">
+              <label for="file" class="file-label">
+                <input type="file" class="file-input" name="file">
+                <a class="file-select btn btn-light" href="javascript:;"><i class="fa fa-upload"></i>Upload file</a>
+                <span class="file-name"></span>
+                <a href="javascript:;" class="remove-file">Remove File</a>
+                <img class="preview-file" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs%3D" alt="preview image" />
+              </label>
+            </div>
+          </div>
+  
+          <div class="columns-2">
+  
+            <div class="simpleforms">
+              <input type="radio" name="radio" value="radio-1" id="radio-1">
+              <label for="radio-1">Radio 1</label>
+            </div>
+  
+            <div class="simpleforms">
+              <input type="radio" name="radio" value="radio-2" id="radio-2">
+              <label for="radio-2">Radio 2</label>
+            </div>
+  
+            <div class="simpleforms">
+              <input type="radio" name="radio" value="radio-3" id="radio-3">
+              <label for="radio-3">Radio 3</label>
+            </div>
+  
+            <br>
+  
+            <div class="simpleforms">
+              <input type="checkbox" name="toggler" value="toggler" class="toggler">
+            </div>
+  
+            <br>
+  
+            <div class="simpleforms">
+              <label for="submit">
+                <a class="btn btn-primary" href="javascript:;">Submit</a>
+              </label>
+            </div>
+  
+          </div>
+  
+        </div><!-- /row -->
+  
+      </div><!-- /columns-2 -->
+  
+    </fieldset>
   
   </form>
 </div>
@@ -355,5 +346,6 @@
     </div>
     <script src="./assets/js/vendor.js"></script>
     <script src="./assets/js/modules.js"></script>
+    <script src="./assets/js/iframe.js"></script>
   </body>
 </html>
