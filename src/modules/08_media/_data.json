@@ -36,7 +36,7 @@
         {
           "images": [
               {
-                "src" : "http://www.unsplash.it/1280/600"
+                "src" : "http://www.placehold.it/1280x600"
               }
           ]
         },
@@ -46,7 +46,7 @@
                 "src" : "http://www.fillmurray.com/600/400"
               },
               {
-                "src" : "http://www.unsplash.it/600/400"
+                "src" : "http://www.placehold.it/600x400"
               }
           ]
         },
