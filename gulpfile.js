@@ -36,18 +36,12 @@ var config = {
 
 	'styles': {
 		'src' : 'src/assets/scss',
-		'dest': 'dist/assets/css',
-		'order': []
+		'dest': 'dist/assets/css'
 	},
 
 	'scripts': {
 		'src' : 'src/assets/js',
-		'dest': 'dist/assets/js',
-		'order': [
-			'**/**/jquery.js',
-			'**/**/jquery.easing.js',
-			'**/**/*.js'
-		]
+		'dest': 'dist/assets/js'
 	},
 
 	// gh-pages default pushes to gh-pages branch.
@@ -109,7 +103,6 @@ gulp.task('browserSync', function() {
 // parted out mainbowerfiles into its own function
 gulp.task('mbf', function () {
 	gulp.src(mainBowerFiles({includeDev: true}).filter(function (f) { return f.substr(-2) === 'js'; }))
-		// .pipe(plugins.order(config.scripts.order))
 		.pipe(plugins.uglify())
 		.pipe(plugins.concat('vendor.js'))
 		.pipe(gulp.dest('dist/assets/js/'));
@@ -261,10 +254,6 @@ gulp.task('styleguide-js', function() {
 // Optimizing Images
 gulp.task('images', function() {
 	return gulp.src(config.src.root + '/assets/images/**/*.+(png|jpg|jpeg|gif|svg)')
-		// Caching images that ran through imagemin
-		.pipe(plugins.cache(plugins.imagemin({
-			interlaced: true,
-		})))
 		.pipe(gulp.dest(config.dist.root + '/assets/images'))
 });
 
@@ -283,7 +272,6 @@ gulp.task('cname',function(){
 // Cleaning
 gulp.task('clean', function() {
 	del(config.dist.root);
-	return plugins.cache.clearAll();
 });
 
 // json/jade root styleguide wrapper

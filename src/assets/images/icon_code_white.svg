@@ -1,15 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="33px" height="14px" viewBox="0 0 33 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.1 (8751) - http://www.bohemiancoding.com/sketch -->
-    <title>icon_code</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <g id="icon_code" sketch:type="MSLayerGroup" fill="#FFFFFF">
-            <g id="Group" sketch:type="MSShapeGroup">
-                <path d="M12.192,9.768 L12.192,13.968 L0,8.832 L0,5.136 L12.192,0 L12.192,4.2 L4.032,6.96 L4.032,7.008 L12.192,9.768 L12.192,9.768 Z" id="Shape"></path>
-                <path d="M28.056,7.008 L28.056,6.96 L19.896,4.2 L19.896,0 L32.088,5.136 L32.088,8.831 L19.896,13.968 L19.896,9.768 L28.056,7.008 L28.056,7.008 Z" id="Shape"></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="33" height="14" viewBox="0 0 33 14" xmlns="http://www.w3.org/2000/svg"><title>icon_code</title><g fill="#FFF" fill-rule="evenodd"><path d="M12.192 9.768v4.2L0 8.832V5.136L12.192 0v4.2l-8.16 2.76v.048l8.16 2.76zM28.056 7.008V6.96l-8.16-2.76V0l12.192 5.136V8.83L19.896 13.97v-4.2l8.16-2.76z"/></g></svg>
