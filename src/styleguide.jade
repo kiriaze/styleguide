@@ -1,6 +1,7 @@
 extends templates/_layout
 block styles
-  link(href='./assets/css/main.css', rel='stylesheet')
+  link(href='./assets/css/vendor.css', rel='stylesheet')
+  link(href='./assets/css/styleguide.css', rel='stylesheet')
   link(href='./assets/css/modules.css', rel='stylesheet')
 block meta
   meta(name='description', content='')
@@ -11,6 +12,8 @@ block content
     include modules.html
   include templates/_footer.jade
 block scripts
-  script(src="./assets/js/vendor.js")
+  //- bundle.js includes jquery, vendor.js doesn't
+  //- use vendor.js in other projects that already load jquery
+  script(src="./assets/js/bundle.js")
   script(src="./assets/js/modules.js")
   script(src="./assets/js/iframe.js")

@@ -1,14 +1,14 @@
 {
   "name": "styleguide",
   "version": "1.0.0",
-  "description": "",
+  "description": "A gulp flavored styleguide inspired by Huge's styleguide, utilizing jade & json on top of an easily extendable format. It comes preconfigured with Browserify, sourcemaps, libsass, optimization, bower, browser-sync, gh-pages and more.",
   "main": "",
-  "scripts": {},
   "author": "Constantine Kiriaze",
   "license": "GPL",
   "dependencies": {
     "browser-sync": "^2.7.12",
     "browserify": "^11.0.1",
+    "browserify-shim": "^3.8.12",
     "del": "^1.2.0",
     "event-stream": "^3.3.1",
     "glob": "^5.0.14",
@@ -18,11 +18,12 @@
     "gulp-concat": "^2.4.3",
     "gulp-data": "^1.2.0",
     "gulp-filter": "^3.0.1",
+    "gulp-flatten": "^0.2.0",
     "gulp-gh-pages": "0.5.2",
     "gulp-jade": "^1.1.0",
     "gulp-load-plugins": "^1.0.0-rc.1",
     "gulp-notify": "^2.2.0",
-    "gulp-sass": "^2.0.1",
+    "gulp-sass": "^2.2.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
     "jade": "^1.11.0",
@@ -31,5 +32,22 @@
     "run-sequence": "^1.1.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "browser": {
+    "jquery": "./src/assets/vendor/jquery/dist/jquery.js"
+  },
+  "browserify-shim": {
+    "jquery": {
+      "exports": "$"
+    }
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "scripts": {
+    "preinstall": "npm install --g gulp && npm install -g bower",
+    "postinstall": "bower install && gulp"
   }
 }

@@ -6,39 +6,7 @@
 
 $header-height: 75px;
 
-*,
-*:after,
-*:before {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-
-html,
 body {
-	font-size: $base-font-size;
-}
-
-html {
-	font-family: sans-serif;
-    text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-}
-
-body {
-	line-height: 1;
-	font-family: $body-font;
-	color: $dark-grey;
-	-webkit-font-smooth: always;
-	-webkit-font-smoothing: antialiased;
-	text-shadow: 0 1px 0 rgba(0,0,0,0.01);
-	background: white;
-
-	overflow-scrolling: touch;
-	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-
-	text-size-adjust: none;
-
 	transition: $transition;
 	opacity: 0;
 	&.loaded {
@@ -53,12 +21,6 @@ body {
 		overflow-x: hidden;
 		overflow-y: visible;
 	}
-}
-
-ul,
-ol,
-li {
-	margin: 0;
 }
 
 a {
@@ -101,7 +63,7 @@ hr {
 	}
 }
 
-header {
+.styleguide-header {
 	overflow: hidden;
 	border-bottom: 1px solid #ddd;
 	line-height: $header-height;
@@ -317,6 +279,11 @@ header {
 	}
 }
 
+// space out when multiple toggles in module
+pre + .styleguide-module__toggle-code {
+    margin-top: 2rem;
+}
+
 .styleguide-list--buttons {
 	li {
 		margin-bottom: 1rem;
@@ -330,6 +297,7 @@ header {
 	background: $primary-color;
 	color: white;
 	padding: 2rem 0;
+	order: 2;
 	p {
 		padding: 0;
 		font-size: 12px;
@@ -344,12 +312,4 @@ header {
 
 .pull-right {
 	float: right;
-}
-
-@mixin clearfix {
-	&::after {
-		clear: both;
-		content: "";
-		display: table;
-	}
 }

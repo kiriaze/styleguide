@@ -102,22 +102,40 @@ gulp.task('browserSync', function() {
 
 // parted out mainbowerfiles into its own function
 gulp.task('mbf', function () {
-	gulp.src(mainBowerFiles({includeDev: true}).filter(function (f) { return f.substr(-2) === 'js'; }))
+	// exclude jquery from vendor.js build to prevent conflicts
+	// when referencing it within wp or other cms builds
+	gulp.src(mainBowerFiles({includeDev: true}))
+		.pipe(plugins.filter(['**/*.js', '!jquery.js']))
 		.pipe(plugins.uglify())
 		.pipe(plugins.concat('vendor.js'))
 		.pipe(gulp.dest('dist/assets/js/'));
+
+	// run the vendor build again but this time
+	// include jquery into bundled.js for reference
+	// within styleguide
+	gulp.src(mainBowerFiles({includeDev: true}))
+		.pipe(plugins.filter(['**/*.js']))
+		.pipe(plugins.uglify())
+		.pipe(plugins.concat('bundle.js'))
+		.pipe(gulp.dest('dist/assets/js/'));
+
+	// concat all bower css into vendor.css
+	gulp.src(mainBowerFiles({includeDev: true}))
+		.pipe(plugins.filter('**/*.css'))
+		.pipe(plugins.concat('vendor.css'))
+		.pipe(gulp.dest('dist/assets/css/'));
 });
 
 
 // Compile, concat, minify, autoprefix and sourcemap SCSS + bower
 gulp.task('sass', function() {
 
-	var files = [config.styles.src + '/main.scss', config.styles.src + '/modules.scss'];
+	var files = [config.styles.src + '/styleguide.scss', config.styles.src + '/modules.scss'];
 
 	return gulp.src(files)
 		.pipe(plugins.sourcemaps.init())
 			.pipe(plugins.sass({
-				outputStyle: 'compressed'
+				outputStyle: 'compressed' //  nested, expanded, compact, compressed
 			}).on('error', plugins.sass.logError))
 			.pipe(plugins.autoprefixer('last 2 versions'))
 			.pipe(plugins.sourcemaps.write('./'))
@@ -199,7 +217,7 @@ gulp.task('modules-js', function(){
 	var tasks = files.map(function(entry, output) {
 		return browserify({
 			entries: [entry],
-			noParse: [config.bowerDir + '/jquery/dist/jquery.min.js'] // prevent lag by excluding scripts that dont 'require'
+			// noParse: [config.bowerDir + '/jquery/dist/jquery.js'] // prevent lag by excluding scripts that dont 'require'
 		})
 			.bundle()
 			.on('error', plugins.notify.onError(function (error) {
@@ -230,7 +248,7 @@ gulp.task('styleguide-js', function() {
 		output = entry.replace('src/',''); // change entry/ouput
 		return browserify({
 			entries: [entry],
-			noParse: [config.bowerDir + '/jquery/dist/jquery.min.js'] // prevent lag by excluding scripts that dont 'require'
+			// noParse: [config.bowerDir + '/jquery/dist/jquery.js'] // prevent lag by excluding scripts that dont 'require'
 		})
 			.bundle()
 			.on('error', plugins.notify.onError(function (error) {
@@ -257,10 +275,41 @@ gulp.task('images', function() {
 		.pipe(gulp.dest(config.dist.root + '/assets/images'))
 });
 
+// Copy Videos
+gulp.task('video', function() {
+	return gulp.src(config.src.root + '/assets/video/**/*')
+		.pipe(gulp.dest(config.dist.root + '/assets/video'))
+		.pipe(browserSync.reload({stream:true}))
+});
+
 // Copying fonts
 gulp.task('fonts', function() {
-	return gulp.src(config.src.root + '/assets/fonts/**/*')
+	del(config.dist.root + '/assets/fonts');
+	// return gulp.src(config.src.root + '/assets/fonts/**/*')
+	// .{ttf,woff,eot,svg}
+	return gulp.src(config.src.root + '/**/fonts/**/*')
+		.pipe(plugins.flatten()) // remove directory structure, e.g. path/to/files
 		.pipe(gulp.dest(config.dist.root + '/assets/fonts'))
+});
+
+// Copying non underscored json files
+gulp.task('json', function() {
+	// exclude _data.json files from getting copied over to data dir
+	return gulp.src([
+		config.src.root + '/modules/**/*.json',
+		'!' + config.src.root + '/modules/**/_data.json'
+		])
+		.pipe(plugins.flatten()) // remove directory structure, e.g. 01_introduction/file.json
+
+		// unglob your paths, pass the file paths into gulp.src.
+		// When gulp src receives unglobbed file paths the relative dir is not maintained and simply copies the file to the root of the dest dir you specify. It can also be useful to unglob your paths first if you need to do any custom filtering or appending before setting src.
+		// gulp.task('copy-fonts', function() {
+		// files = glob.sync('dependencies/**/*.{ttf,woff,eof,svg}');
+		// gulp.src(files)
+		// .pipe(gulp.dest(config.dist.root + '/assets/data'))
+		// });
+
+		.pipe(gulp.dest(config.dist.root + '/assets/data'))
 });
 
 // CNAME
@@ -274,7 +323,7 @@ gulp.task('clean', function() {
 	del(config.dist.root);
 });
 
-// json/jade root styleguide wrapper
+// json/jade in root of project / styleguide wrapper
 gulp.task('styleguide', function() {
 
 	var data = JSON.parse(fs.readFileSync('_data.json'));
@@ -398,6 +447,7 @@ gulp.task('default', function() {
 		'js-includes',
 		'images',
 		'fonts',
+		'json',
 		'cname',
 		'build-date',
 		'browserSync',

@@ -1,10 +1,12 @@
 // Iframe scripts
-
 var prism        = require('./plugins/prism.js');
 
 (function($){
 
 	// console.log('iframe loaded');
+
+	// fade in iframe body
+	$('body').addClass('loaded');
 
 	// SimpleAnchors
 	$.simpleAnchors({

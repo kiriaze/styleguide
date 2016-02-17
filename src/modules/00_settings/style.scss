@@ -3,6 +3,7 @@ $tiny:							480px; // 30em
 $small:							768px; // 45em
 $medium:						960px; // 60em
 $large:							1280px; // 80em
+$xlarge:						1440px; // 90em
 
 // Base Typography Values
 $rem-base:						16px !default;
@@ -39,8 +40,10 @@ $list-line-height:				1.6 !default;
 $blockquotes-font-size:			21 !default;
 
 // fonts - core/_fonts.scss
-$body-font:						'Open Sans', helvetica, sans-serif;
-$header-font:					'Open Sans', $body-font;
+$body-font:						Open Sans, helvetica, sans-serif;
+$header-font:					Open Sans, $body-font;
+$sans: $body-font;
+$slab: $header-font;
 
 //
 //
@@ -103,6 +106,27 @@ $transition:					all $duration cubic-bezier(0.2, .4, .1, 1); // thumbnail animat
 // Styleguide Sidebar Width
 $sidebar-width:					240px;
 
+// Animation Class Variables Setup
+$fadeIn:						true;
+$fadeInDown:					true;
+$fadeInLeft:					true;
+$fadeInRight:					true;
+$fadeInUp:						true;
+$fadeOut:						true;
+$fadeOutDown:					true;
+$fadeOutLeft:					true;
+$fadeOutRight:					true;
+$fadeOutUp:						true;
+$fadeInScale:					true;
+$fadeInScaleBig:				true;
+$fadeOutScale:					true;
+$fadeOutScaleBig:				true;
+$slideOutUp:					true;
+$slideInDown:					true;
 
 @import '../vendor/s-grid/breakpoints',
-		'../vendor/s-grid/grid';
+		'../vendor/s-grid/grid',
+		'../vendor/s-animate/animate/animate',
+		'defaults/mixins/mixins',
+		'defaults/core/core',
+		'defaults/patterns/patterns';

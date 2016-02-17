@@ -1,9 +1,9 @@
 // Outer iframe wrapper scripts
 
-var $ = require('../vendor/jquery/dist/jquery.js');
-global.jQuery = require('../vendor/jquery/dist/jquery.js'); // for jquery plugins to work instead of using browserify-shim
+// used in conjuncture with styleguide's package.json and browserify-shim
+var $ = global.jQuery = require('jquery');
 
-$(function() {
+(function($){
 
 	/* jshint devel:true */
 	'use strict';
@@ -19,7 +19,6 @@ $(function() {
 	SG.init = function(){
 
 		SG.setElements();
-		SG.colors();
 		SG.basics();
 		SG.breakpointToggle();
 
@@ -31,36 +30,11 @@ $(function() {
 		// defaults
 		SG.elems.html              = $('html');
 		SG.elems.body              = $('body');
-		SG.elems.scrollToTop       = $('a[data-scroll-to="top"]');
 
 		SG.elems.toggleSidebar     = $('.toggle-sidebar');
 		SG.elems.header            = $('.styleguide-header');
 		SG.elems.headerBreakpoints = $('.styleguide-header-breakpoints');
 
-	};
-
-	SG.colors = function() {
-		var colors = {
-			aqua    : '#7FDBFF',
-			blue    : '#0074D9',
-			lime    : '#01FF70',
-			navy    : '#001F3F',
-			teal    : '#39CCCC',
-			olive   : '#3D9970',
-			green   : '#2ECC40',
-			red     : '#FF4136',
-			maroon  : '#85144B',
-			orange  : '#FF851B',
-			purple  : '#B10DC9',
-			yellow  : '#FFDC00',
-			fuchsia : '#F012BE',
-			gray    : '#aaa',
-			white   : '#fff',
-			black   : '#111',
-			silver  : '#ddd'
-		};
-		// console.log(colors);
-		// console.log(colors.blue);
 	};
 
 	SG.basics = function() {
@@ -105,8 +79,6 @@ $(function() {
 	});
 
 	$('iframe').load(function() {
-		// fade em in
-		frames[0].$('body').addClass('loaded');
 		// hack, move the sidebar out of iframe
 		SG.elems.header.after(frames[0].$('.sidebar'));
 	});
@@ -119,4 +91,4 @@ $(function() {
 		SG.init();
 	});
 
-});
+})(window.jQuery);
